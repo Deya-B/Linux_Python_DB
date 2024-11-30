@@ -6,16 +6,21 @@ class Interface1():
     """Interface of the DNA playground program"""
 
     def listing(self, file_op):
-        """Obtain the listing of .dna present. Used by list, load and delete.\n
+        """Handling listing. Obtain the listing of .dna present. Used by list, load and delete.\n
         Parameters: file class"""
-        listing, dictionary = file_op.list_info()
-        print("[Id]-Length,Sequence")
-        for item in listing:
-            print(item)
+        raw_list, dictionary = file_op.list_info()
+        if len(raw_list) == 0:
+            print("""\nNothing here! 
+    You must bake(B) and establish(E) some DNA so you can work with them.""")
+            input("""Press ENTER to confirm.""")
+            return False
+        else:
+            print("[Id]-Length,Sequence")
+            for item in raw_list:
+                print(item)
         
-
     def loading (self, file_op, number):
-        """Load a DNA from the list.\n
+        """Handling loading. Load a DNA from the list.\n
         Parameters: file class, number to be loaded"""
         loop1 = True
         while loop1 == True:
@@ -28,10 +33,6 @@ class Interface1():
             if choiceLOAD == "y" or choiceLOAD == "Y":
                 loop1 = False
                 return loaded
-            
-# Initializing variables of DNA and file classes:
-    #file = ""
-    #file_op = File_operations(file)
 
 # MAIN PROGRAM:
     def menu(self, sequence = None, choice = "", file = None, file_op = File_operations()):
@@ -69,7 +70,13 @@ class Interface1():
                 loop = True
                 while loop == True:
                     print ("\nLets create a new DNA chain!")
-                    length = int(input("··· Enter the desired DNA sequence length: "))
+                    try:
+                        length = int(input("··· Enter the desired DNA sequence length: "))
+                        if length <= 0:
+                            raise ValueError("C'mon! Give me a proper number for length.")
+                    except ValueError as e:
+                        print(f"Invalid input: {e}")
+                        continue
                     seq = DNA("")
                     sequence = seq.create_seq(length)
                     print(f"Here is your freshly made DNA sequence! *** {sequence} ***")
@@ -79,56 +86,68 @@ class Interface1():
 
             elif choice == "E" or choice == "e": # Extract/SAVE
                 if sequence == None:
-                    print("\nNothing to save! \nYou must bake/create(B) or take/load(T) a sequence...")
+                    print("\nNothing to save! \nYou must bake(B) or take(T) a sequence onto the plate...")
                     input("\tPress ENTER to confirm.")
                 else:
                     print ("\nLet's freeze this DNA for later use.")
                     file = (input("··· Enter a file name: "))
                     file_op = File_operations(file)
                     file_op.save(DNA(sequence))
-                    print(f"Your DNA sequence has just been saved to: {file_op.directory}/{file_op.file}")
-                    input("""Nothing else to do here... \n\tPress ENTER to go back to the main menu.""")
+                    print(f"Your DNA sequence has just been saved to {file_op.directory}/{file_op.file}")
+                    input("""Well done!! \n\tPress ENTER to go back to the main menu.""")
 
             elif choice == "L" or choice == "l": # LIST
                 print("\nThese are all the DNA sequences available at the moment:")
-                self.listing(file_op)
-                input("When you are ready press ENTER to back to the main menu.")
+                checklist = self.listing(file_op)
+                if checklist == False:
+                    pass
+                else:
+                    input("When you are ready press ENTER to back to the main menu.")
 
             elif choice == "T" or choice == "t": # Take/LOAD
-                print("\nLet's load a DNA from the list:")
-                self.listing(file_op)
-                numberL = input("··· Enter the number of [Id] of the sequence that you want to load: ")
-                loaded = file_op.load(numberL)
-                print("This is the sequence you selected: ",loaded)
-                choiceLOAD = input("Do you want to bring it to main menu (Y/n)? ")
-                if choiceLOAD == "Y" or choiceLOAD == "y":
-                    sequence = loaded
-
-            elif choice == "U" or choice == "u": # Unwanted/DELETE
-                raw_list, dictionary = file_op.list_info()
-                if raw_list == []:
-                    print("""\nNothing to delete! 
-    You must bake/create(B) and establish/save(E) some sequence so you can delete it.""")
-                    input("""Press ENTER to confirm.""")
+                checklist = self.listing(file_op)
+                if checklist == False:
+                    pass
                 else:
-                    loop = True
-                    while loop == True:
-                        print("\nLet's remove all those unwanted DNA's!") 
-                        self.listing(file_op)
-                        numberD = (input("··· Enter the [Id] of the sequence that you want to delete: "))
-                        print(f"Are you sure that you want to get rid of sequence {file_op.load(numberD)}?")
-                        makesure = input("(Y/n) ")
-                        if makesure == "y" or makesure == "Y":
-                            numberD = int(numberD)
-                            filepath = file_op.delete(numberD)
-                            if os.path.exists(filepath): 
-                                os.remove(filepath)
-                                print(f"File '{filepath}' deleted successfully.")
-                            else: 
-                                print(f"File '{filepath}' not found.")
-                        choiceU = input("Would you like to continue throwing away unwanted DNA (Y/n)?  ")
-                        if choiceU == "n" or choiceU == "N":
-                            loop = False
+                    print("\nLet's load a DNA from the list:")
+                    numberL = input("··· Enter the number of [Id] of the sequence that you want to load: ")
+                    loaded = file_op.load(numberL)
+                    print("This is the sequence you selected: ",loaded)
+                    choiceLOAD = input("Do you want to bring it to main menu (Y/n)? ")
+                    if choiceLOAD == "Y" or choiceLOAD == "y":
+                        sequence = loaded
+
+
+            elif choice == "U" or choice == "u":  # Unwanted/DELETE
+                print("\nLet's remove all those unwanted DNA's!")
+                # Make sure there are files to delete
+                print("Current DNA stock:")
+                checklist = self.listing(file_op)
+                if checklist == False:
+                    continue
+                numberD = input("··· Enter the [Id] of the sequence that you want to delete: ")
+                # Check if the input is valid
+                try:
+                    numberD = int(numberD)
+                    filepath = file_op.filedic.get(numberD)  # Get the filepath using the ID
+                    if not filepath:
+                        input("Invalid ID.")
+                        continue
+                except ValueError:
+                    print("Invalid input. Please enter a valid number.")
+                    continue
+                # Confirm deletion
+                print(f"Are you sure you want to delete the sequence {file_op.load(numberD)} in file '{filepath}'?")
+                makesure = input("(Y/n) ")
+                if makesure == "y" or makesure == "Y":
+                    if os.path.exists(filepath):
+                        os.remove(filepath)
+                        print(f"File '{filepath}' deleted successfully.")
+                    else:
+                        print(f"File '{filepath}' not found.")
+                else:
+                    print("Deletion canceled.")
+                input("Press ENTER to go back to the playground.")
 
             elif choice == "O" or choice == "o": # OPERATIONS
                 print ("yeah!"*6)            
@@ -137,14 +156,6 @@ class Interface1():
                 break
 
 
-
-    def operationsDNA(self):
-        pass
-    def file_operations (self):
-        pass
-    def errortackle (self):
-        """Deal with errors"""
-        pass
 
 if __name__ == "__main__":
     mi_app = Interface1()
