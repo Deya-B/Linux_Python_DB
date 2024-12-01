@@ -6,7 +6,7 @@ import os
 class File_operations():
     """Data files management.
     
-    Args:
+    Attributes:
         file: name of the file where it will be saved.
         directory: (By default = Working directory) One or multiple directores hanging 
           from the current directory can be created using the following sintax: dir/n...dirs.
