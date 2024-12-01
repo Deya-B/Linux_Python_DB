@@ -1,6 +1,6 @@
 from DNAclass import DNA
 from File_operations import File_operations
-from OperationsSubmenu import OperationsSubmenu
+from DNAOperationsSubmenu_class import DNAOperationsSubmenu
 import os
 
 class Interface:
@@ -156,7 +156,7 @@ class Interface:
                 print("Deletion canceled.")
             break
 
-    def open_DNAoperations_submenu(self):
+    def open_DNAOperations_Submenu(self):
         """Open the DNA operations submenu"""
         if not self.sequence:
             print("\nNo DNA loaded! Bake (B) or load (T) one first.")
@@ -164,7 +164,7 @@ class Interface:
             return
         
         input("\nEmbarking onto DNA Operations... Press ENTER.")
-        DNAoperations = OperationsSubmenu(self.sequence) 
+        DNAoperations = DNAOperationsSubmenu(self.sequence) 
         modified_sequence = DNAoperations.submenu()
         if modified_sequence:
             self.sequence = modified_sequence
