@@ -3,7 +3,7 @@
 
 import os
 
-class File_operations():
+class File_operations:
     """Data files management.
     
     Attributes:
@@ -48,10 +48,8 @@ class File_operations():
         """List all DNA chains with extension .dna in the current directory.
         
         Returns:
-            filelist,  A list with the DNA's.
-
-            filedict,  A dictionary with the files.
-
+            filelist,  A list with the DNA's.\n
+            filedict,  A dictionary with the files.\n
             line_num,  The number of entries found.
         """
         self.filelist = []
@@ -108,4 +106,4 @@ class File_operations():
                 filename = dictionary[number]
                 filepath = os.path.join(os.getcwd(), filename)
                 return filepath
-            
+                
