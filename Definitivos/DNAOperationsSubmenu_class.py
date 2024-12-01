@@ -1,14 +1,22 @@
+# Autora: Deyanira Borroto Alburquerque
+# HPBBC, Final Practical Python: DNA Toolkit
+
 from DNAclass import DNA
 import textwrap
 
 class DNAOperationsSubmenu:
-    """Submenu for DNA operations"""
-
+    """Submenu for DNA operations
+    
+    Attributes:
+        sequence: DNA chain
+    """
     def __init__(self, sequence):
         self.sequence = sequence
 
+
     def submenu(self):
         """DNA operations submenu loop"""
+
         while True:
             self.display_menu()
             choice = input("··· Enter an option (1-8): ").strip()
@@ -35,8 +43,10 @@ class DNAOperationsSubmenu:
             else:
                 input("Invalid choice. Please select a valid option.")
 
+
     def display_menu(self):
         """Display the submenu and current sequence"""
+
         menu = textwrap.dedent("""
         ~ Submenu: DNA OPERATIONS ~ 
         ---------------------------
@@ -55,8 +65,10 @@ class DNAOperationsSubmenu:
             f"-------------------------------------------------------------------")
         print(sequence_display)
 
+
     def regenerate_dna(self):
-        """Re-generate DNA sequence"""
+        """Re-generate DNA sequence and deal with possible errors"""
+
         while True:
             try:
                 new_length = int(input("Enter the length of the new DNA sequence: "))
@@ -69,8 +81,10 @@ class DNAOperationsSubmenu:
             except ValueError as e:
                 input(f"Invalid input: {e}. Press ENTER to try again.")
 
+
     def validate_dna(self):
-        """Validate the current DNA sequence"""
+        """Validate the current DNA sequence and deal with possible errors"""
+
         validation = "** Valid DNA **" if DNA(self.sequence).validate() else "X Invalid DNA X"
         print(f"""
                 Validation log: 
@@ -79,8 +93,10 @@ class DNAOperationsSubmenu:
                 """)
         input("Press ENTER to return to the menu.")
 
+
     def mutate_dna(self):
-        """Mutate the current DNA sequence"""
+        """Mutate the current DNA sequence and deal with possible errors"""
+
         while True:
             try:
                 mutations = int(input("Enter the number of mutations: "))
@@ -102,6 +118,7 @@ class DNAOperationsSubmenu:
 
             except ValueError as e:
                 input(f"Invalid input: {e}. Press ENTER to try again.")
+
     
     def measure_frequencies(self):
         """Measure nucleotide frequencies"""
@@ -113,15 +130,17 @@ class DNAOperationsSubmenu:
                 """)
         input("Press ENTER to return to the menu.")
 
+
     def count_subsequences(self):
         """Count occurrences of a subsequence"""
+
         while True:
             subseq = input("Enter the subsequence: ").strip().upper()
             if subseq.isnumeric() or not subseq:
                 input("Subsequence cannot be empty or a number! Press ENTER to try again.")
                 continue
             count, positions = DNA(self.sequence).count_subseq(subseq)
-            locate_positions = [x+1 for x in positions]
+            locate_positions = [x+1 for x in positions] # add +1 for exact position
             print(f"""
                 Count occurrences of a subsequence log:
                 -------------------------------------
@@ -131,8 +150,10 @@ class DNAOperationsSubmenu:
             input("Press ENTER to return to the menu.")
             break
 
+
     def synthesize_reverse_complement(self):
         """Synthesize reverse and complement sequences"""
+
         original, reverse, complement = DNA(self.sequence).synt_complement()
         print(f"""
                 Synthesize reverse/complement log:
@@ -142,6 +163,7 @@ class DNAOperationsSubmenu:
                 Reverse:    5' {reverse} 3'
                 """)
         input("Press ENTER to return to the menu.")
+
 
     def measure_gc_content(self):
         """Measure GC content"""
