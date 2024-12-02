@@ -138,7 +138,7 @@ class DNA:
             CG Percentage
         """
         CG_count = 0
-        total = 0 #Calculate total number of CG dinucleotides
+        total = 0  # Calculate total number of CG dinucleotides
         
         for i in range (len(self.sequence)-1):
             dinucleotide = self.sequence[i:i + 2]
@@ -161,7 +161,8 @@ class DNA:
             mutated_seq, the resultant mutated sequence\n
             positions, the mutation positions in the chain
         """
-        positions = random.sample(range(0, len(self.sequence)), num_mutations) #for given number of unique positions
+        positions = random.sample(range(0, len(self.sequence)), num_mutations) 
+                                        # for given number of unique positions
         result = list(self.sequence)
 
         for i in range(len(self.sequence)):

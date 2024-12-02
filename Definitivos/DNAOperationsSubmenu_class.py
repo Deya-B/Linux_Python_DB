@@ -19,6 +19,7 @@ class DNAOperationsSubmenu:
 
         while True:
             self.display_menu()
+            
             choice = input("··· Enter an option (1-8): ").strip()
             if choice not in "12345678":
                 input("Invalid option! Please enter a valid number. Press ENTER to try again.")
