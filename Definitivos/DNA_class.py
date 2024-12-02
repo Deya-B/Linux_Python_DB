@@ -33,12 +33,14 @@ class DNA:
         Returns:
           Sequence: A new sequence of given length
         """
-        nuclFreq = [0.2, 0.3, 0.3, 0.2]      #Make nucleotides' frequency to be slightly more realistic
+        nuclFreq = [0.2, 0.3, 0.3, 0.2]     # Make nucleotides' frequency to 
+                                            # be slightly more realistic
         nucleotidos = ["A", "C", "G", "T"]
         self.sequence = numpy.random.choice(nucleotidos, size=length, p=nuclFreq)
-        self.sequence = numpy.array(self.sequence) # Avoiding future array problems changing array to numpy array
-        self.sequence = ''.join(self.sequence.tolist()) # numpy array to list and join into STRING
-
+        self.sequence = numpy.array(self.sequence) # Avoiding future array problems 
+                                                   # changing array to numpy array
+        self.sequence = ''.join(self.sequence.tolist()) # numpy array to list 
+                                                        # and join into STRING
         return self.sequence
 
 
@@ -48,10 +50,10 @@ class DNA:
         Returns:
           True (valid) or False (non-valid).
         """
+
         for base in self.sequence:
             if base not in "ATCG":
                 return False
-            
         return True
     
     
@@ -61,15 +63,19 @@ class DNA:
         Returns:
           frequencies: A dictionary with the frequencies for each nucleotide
         """
+
         self.freqs = {"A":0, "T":0, "G":0, "C":0}
 
         for nucleotido in self.sequence:  
             if nucleotido == "A":
                 self.freqs["A"] += 1
+
             elif nucleotido == "T":
                 self.freqs["T"] += 1
+
             elif nucleotido == "G":
                 self.freqs["G"] += 1
+
             elif nucleotido == "C":
                 self.freqs["C"] += 1
 
@@ -86,16 +92,19 @@ class DNA:
             chainIn_count, the number of ocurrences of the given nucleotide chain.\n
             chains_positions, the positions at which those ocurrences start.
         """
+
         chainIn_count = 0
         chains_positions = []
         chainIn_length = len(chainIn)
         i = 0
+
         while i <= len(self.sequence) - chainIn_length:
             find = self.sequence[i:i + chainIn_length]
             if chainIn == find:
                 chains_positions.append(i)
                 chainIn_count += 1
-                i += chainIn_length # to move index forward by the length of the subsequence to avoid overlap
+                i += chainIn_length # to move index forward by the length 
+                                    # of the subsequence to avoid overlap
             else:
                 i += 1    # otherwise, move to next character
 

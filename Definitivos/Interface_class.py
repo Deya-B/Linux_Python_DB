@@ -1,7 +1,7 @@
 # Autora: Deyanira Borroto Alburquerque
 # HPBBC, Final Practical Python: DNA Toolkit
 
-from DNAclass import DNA
+from DNA_class import DNA
 from File_operations_class import File_operations
 from DNAOperationsSubmenu_class import DNAOperationsSubmenu
 import os
