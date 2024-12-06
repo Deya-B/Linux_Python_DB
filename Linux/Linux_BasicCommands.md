@@ -69,32 +69,3 @@
   * ```ln -s sort.txt symbolic.txt``` To create a symbolic link called *symbolic.txt* to your target file *sort.txt*
   > Also, when you delete a target file, symbolic links to that file become unusable, whereas hard links preserve the contents of the file.
 
-## Useful Commands
-- **grep** : It searches files for specified words or patterns (regular expressions).
-  * ```grep If tempfile.txt``` grep prints each line with the word If. The grep command is case sensitive; it distinguishes between If and if.
-  * ```grep -i If tempfile.txt``` To ignore upper/lower case distinctions, use the -i option
-
-> Some other useful options of grep are:
-> 
-  > -v 🡒 display those lines that do NOT match
-  >
-  > -n 🡒 precede each matching line with the line number
-  >
-  > -c 🡒 print only the total count of matched lines
-  
-  * ```grep -iwvc file tempfile.txt``` the number of lines without the words file or File
-- 
-  * ``````
-  * ``````
-- 
-  * ``````
-  * ``````
-  * ``````
-  * ``````
-
-  * ``` ```
-  * ``` ```
-  * ``` ```
-  * ``` ```
-  * ``` ```
-  
