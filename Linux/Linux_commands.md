@@ -47,10 +47,21 @@
   * ```cat unix1.html unix2.html unix3.html``` To display three files called unix1.html, unix2.html and unix3.html
   > When using cat be warned that it will not pause between page breaks, it literally displays the whole file in one go.
 
-- **less** {file} The command less writes the contents of a file onto the screen a page at a time.
+- **less** {file}: The command less writes the contents of a file onto the screen a page at a time.
   * ```less tempfile.txt```
   > Press the [space-bar] if you want to see another page, [Enter] if you want to scroll the file line by line, and type [q] if you want to quit reading. As you can see, less is used in preference to cat for long files.
+  > Using less, you can search though a text file for a keyword (pattern). For example, to search through tempfile.txt for the word 'file'type a forward slash [/] followed by the word to search
+  * ```/file```  less finds and highlights the keyword.
+  > Type [n] to search for the next occurrence of the word.
+ 
+- **head** {file}: The head command writes the first ten lines of a file to the screen.
+  * ```head tempfile.txt```
+  * ```head -15 tempfile.txt``` first 15 lines...
 
+- **tail** {file}: The tail command writes the last ten lines of a file to the screen.
+  * ```tail tempfile.txt```
+  * ```tail -30 tempfile.txt``` las 30 lines...
+ 
 - **ln**: Symbolic links or soft link, is a special kind of file that points to another file (target file).
   > Unlike a hard link, a symbolic link does not contain the data of the target file. It simply points to another entry somewhere in the file system.
   > 
@@ -58,6 +69,23 @@
   * ```ln -s sort.txt symbolic.txt``` To create a symbolic link called *symbolic.txt* to your target file *sort.txt*
   > Also, when you delete a target file, symbolic links to that file become unusable, whereas hard links preserve the contents of the file.
 
+## Useful Commands
+- **grep** : It searches files for specified words or patterns (regular expressions).
+  * ```grep If tempfile.txt``` grep prints each line with the word If. The grep command is case sensitive; it distinguishes between If and if.
+  * ```grep -i If tempfile.txt``` To ignore upper/lower case distinctions, use the -i option
+
+> Some other useful options of grep are:
+> 
+  > -v 🡒 display those lines that do NOT match
+  >
+  > -n 🡒 precede each matching line with the line number
+  >
+  > -c 🡒 print only the total count of matched lines
+  
+  * ```grep -iwvc file tempfile.txt``` the number of lines without the words file or File
+- 
+  * ``````
+  * ``````
 - 
   * ``````
   * ``````
