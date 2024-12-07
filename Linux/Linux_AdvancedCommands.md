@@ -241,17 +241,27 @@ echo “eduardo serrano” | tr -d 'dn'
 ```
 * More examples:
   - Use the standarized argument [:digit:] to remove all the digits:
-    ```
+    ```sh
     echo “Bank account: 0001 00 12345678” | tr -d [:digit:]
     ```
   - To remove all the characters except digits:
-    ```
+    ```sh
     echo “Bank account 0001 00 12345678” | tr -cd [:alpha:]
     ```
-  - as you can see the option `-c` (complement) causes tr to work on the characters that are NOT in the given set:
-    ```
+  - The option `-c` (complement) causes tr to work on the characters that are NOT in the given set:
+    ```sh
     echo “Bank account: 0001 00 12345678” | tr -cd [:digit:]
     ```
+  - To remove the punctuation characteres you can replace all the punctuation characters by spaces: 
+    ```sh
+    cat file2 | tr '[:punct:]' ' ' > file3
+      # replace all the punctuation characters in file2 and redirect output to file3
+    ```sh
+  - `-s` option replaces each sequence of repeated characters that is listed in the last specified set, with a single instance. The following command translates all newlines in the file data.txt into spaces yielding a **single line**.
+    ```sh
+    tr -s '\n' ' ' < data.txt
+    ```
+
     
 ``
 ``
