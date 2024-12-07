@@ -54,13 +54,45 @@
   * ```/file```  less finds and highlights the keyword.
   > Type [n] to search for the next occurrence of the word.
  
-- **head** {file}: The head command writes the first ten lines of a file to the screen.
+- **head** {file}:
+```sh
+SYNOPSIS
+  head [OPTION]... [FILE]...
+
+DESCRIPTION
+  Print the first 10 lines of each FILE to standard output.
+  -c, --bytes=[-]NUM
+  print the first NUM bytes of each file; with the leading ’-’,
+  print all but the last NUM bytes of each file
+  -n, --lines=[-]NUM
+  print the first NUM lines instead of the first 10; with the
+  leading ’-’, print all but the last NUM lines of each file
+```
   * ```head tempfile.txt```
   * ```head -15 tempfile.txt``` first 15 lines...
+  * ```head -n 100 adult.data``` Display the first 100 lines of file adult.data
+  * ```head -n -100 adult.data``` Display all the lines in file adult.data except the last 100
 
-- **tail** {file}: The tail command writes the last ten lines of a file to the screen.
+- **tail** {file}:
+```sh
+SYNOPSIS
+  tail [OPTION]... [FILE]...
+DESCRIPTION
+  Print the last 10 lines of each FILE to standard output.
+  -c, --bytes=[+]NUM
+  output the last NUM bytes; or use -c +NUM to output starting
+  with byte NUM of each file
+  -n, --lines=[+]NUM
+  output the last NUM lines, instead of the last 10; or use -n
+  +NUM to output starting with line NUM
+```
   * ```tail tempfile.txt```
-  * ```tail -30 tempfile.txt``` las 30 lines...
+  * ```tail -30 tempfile.txt``` last 30 lines...
+  * ```tail -n 100 adult.data``` Display the last 100 lines of file adult.data
+  * ```tail -n +100 adult.data``` Display the content in file adult.data starting in line 100
+  * ```head -n 200 adult.data | tail -n +100``` Display lines 100 to 200
+  * ```head -n 200 adult.data | tail -n 101```
+  * ```tail -n +100 adult.data | head -n 101```
  
 - **ln**: Symbolic links or soft link, is a special kind of file that points to another file (target file).
   > Unlike a hard link, a symbolic link does not contain the data of the target file. It simply points to another entry somewhere in the file system.
