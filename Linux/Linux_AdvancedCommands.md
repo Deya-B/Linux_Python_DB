@@ -1,5 +1,27 @@
-## Linux Commands I
-- **grep** *'keyword'* {file}: search files for specified words or patterns (regular expressions).
+# Table of Contents
+1. [Linux Commands I](#commandsI)
+    1. [grep *'keyword'* {file}](#grep)
+    2. [wc {file}](#wc)
+    3. [sort](#sort)
+    4. [cat {file1} {file2} > {file0}](#cat)
+2. [Redirection](#redirection)
+    1. [](#)
+    2. [](#)
+    3. [](#)
+    4. [](#)
+3. [Third Example](#third-example)
+    1. [](#)
+    2. [](#)
+    3. [](#)
+    4. [](#)
+    5. [](#)
+4. [Fourth Example](#fourth-examplehttpwwwfourthexamplecom)
+    1. [grep *'keyword'* {file}](#grep)
+
+
+# Linux Commands I <a name="commandsI"></a>
+### grep *'keyword'* {file}: <a name="grep"></a>
+Search files for specified words or patterns (regular expressions).
   * ```grep If tempfile.txt``` grep prints each line with the word If. The grep command is case sensitive; it distinguishes between If and if.
   * ```grep -i If tempfile.txt``` To ignore case sensitivity use -i
 
@@ -22,23 +44,26 @@ If you have a bunch of text files in a directory hierarchy, e.g, in ~/ database/
 grep -rc gmail ~/database/
 ```
 
-- **wc** {file} (word count): count number of lines/words/characters in file
+### wc {file} (word count): <a name="wc"></a>
+Count number of lines/words/characters in file.
   * ```wc -w tempfile.txt``` To do a word count on tempfile.txt
   * ```wc -l tempfile.txt``` To find out how many lines the file has
   * ```wc tempfile.txt sort.txt``` To print how many lines, word and characters in files tempfile.txt and sort.txt
 
-- **sort** The command sort alphabetically or numerically sorts a list.
+### sort <a name="sort"></a>
+The command sort alphabetically or numerically sorts a list.
   * ```sort```
   Then type in the names of some animals. Press [Return] after each one. <br>
   dog cat bird ape; ^C (control c to stop)
   The output will be: ape bird cat dog
 
-- **cat** {file1} {file2} > {file0}: concatenate file1 and file2 to file0
+### cat {file1} {file2} > {file0}: <a name="cat"></a>
+Concatenate file1 and file2 to file0.
   * ```cat list1.txt list2.txt > biglist.txt```<br>
   Example explained further down in "Appending to a file"
 
 
-## Redirection
+## Redirection <a name="redirection"></a>
 Most processes initiated by UNIX commands write to the standard output (that is, they write to the terminal screen), and many take their input from the standard input (that is, they read it from the keyboard). <br>
 There is also the standard error, where processes write their error messages, by default, to the terminal screen.
 
@@ -110,8 +135,82 @@ Other examples:
   * ```ls -lp | grep /```
   * ```ls -lp | grep -v /```
 
+# Linux Commands II
+### gzip
+This reduces the size of a file, thus freeing valuable disk space using the ZIP compressor. For example
+  * ```gzip science.txt``` This will compress the file and place it in a file called science.txt.gz
+To expand the file, use the gunzip command.
+  * ```gunzip science.txt.gz```
+
+### tar
+In Linux, tar command is useful as it can combine several files into a single uncompressed (or compressed) file. Tar command, also called tape archiving. With the help of this command, the individual files in a directory can be unpacked and extracted from the archive file.
+
+Most used tar options:
+```
+-c  create a archive file
+-x  extract a archive file
+-v  show the progress of archive file
+-f  filename of archive file
+-t  viewing content of archive file
+-j  compress archive through bzip2
+-z  compress archive through gzip
+-r  append or update files or directories to existing archive file
+```
+Examples:
+  * ```tar -cvzf tarPrueba.tar.gz ./tarPrueba/``` To create a compresseddd gzip archive file called tarPrueba.tar.gz of the directory ./tarPrueba
+  * ```tar -tvzf tarPrueba.tar.gz``` To list contents of a tar archive
+  * ```tar -xvzf tarPrueba.tar.gz``` To untar or extract a tar file
+  * ```tar -xvzf tarPrueba.tar.gz -C ./tarPruebaNew``` To untar in a different directory: option -C {specified directory}
+Some times, you may want to compress an entire directory, but excluding certain files or directories.
+You can do so by appending an ```--exclude``` switch for each directory or file you want to exclude.
+
+    * ```tar -czvf archive.tar.gz /home/ubuntu --exclude=*.mp4``` To compress /home/ubuntu excluding all .mp4 files
+ 
+### zcat
+zcat will read gzipped files without needing to uncompress them first.
+  * ```zcat science.txt.gz```
+  * ```zcat rm.txt.gz | less``` If the text scrolls too fast, pipe the output though less
   
+### cut (and tr)
+The cut command is used for text processing. 
+You can use this command to extract portion of text from a file by selecting columns (fields) or characters.
+For example, let's say you have a file (fruit.txt) which contains the following ASCII text, being the field delimiter the | character:
+``` ruby
+$ cat fruit.txt
+apples|Spain
+oranges|Spain
+pears|Israel
+```
+to extract the second column type,
+```cut -d'|' -f2 fruit.txt```
+
+When the field ```delimiter = tab``` you can omit the -d option. For example:
+``` ruby
+$ cat fruit.txt
+apples	Spain		red
+oranges	Spain		juice
+pears	Israel		galia
+kiwis	SouthAfrica	green
+$ cut -f 3 fruit.txt
+red
+juice
+galia
+green
+```
+
+
+
+  * ``` ```
+  * ``` ```
+
+### zcat
+
   * ``` ```
   * ``` ```
   * ``` ```
-  
+
+### zcat
+
+  * ``` ```
+  * ``` ```
+  * ``` ```
