@@ -6,11 +6,12 @@
         - [NOT](#not)
     2. [IF ... ELSE / IF.. ELIF... ELSE Statements](#ifelse)
 2. [LOOPS](#loops)
-3. [](#)
-4. [](#)
-5. [](#)
-6. [](#)
-
+    1. [FOR](#for)
+        - [Sequences](#seq)
+    2. [WHILE](#while)
+    3. [UNTIL](#until)
+    - [Ejemplo](#ejemplo)
+    - [SOLUCIÓN](#solucion)
 
 References: [tutorials](https://ryanstutorials.net/bash-scripting-tutorial/bash-if-statements.php)
 
