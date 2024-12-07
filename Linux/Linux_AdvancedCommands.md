@@ -228,13 +228,33 @@ tr '{}' '()' < file1 > file2
 > [!CAUTION]
 > Avoid using the same output file from the input, this will erase all the text in that file, including the outputted by tr. Thus, the following should not be used: `tr s S < file1 > file1`
 
-* *When numerous characters need to be replaced*: tr can also replace characters in a specified range by their counterparts in another specified range.
+* *When numerous characters need to be replaced*: tr can also replace characters in a specified range by their counterparts in another specified range:
 > A range is indicated by inserting a hyphen between the first and last characters and then placing all of this in square brackets.
 ``` sh
 cat file2 | tr '[A-Z]' '[a-z]' > file3
 ```
 > This will replace every upper case letter in a file named file2 by its lower case counterpart and write the result to a file called file3
 
+* tr can also be used to remove particular characters using -d option:
+``` sh
+echo “eduardo serrano” | tr -d 'dn'
+```
+* More examples:
+  - Use the standarized argument [:digit:] to remove all the digits:
+    ```
+    echo “Bank account: 0001 00 12345678” | tr -d [:digit:]
+    ```
+  - To remove all the characters except digits:
+    ```
+    echo “Bank account 0001 00 12345678” | tr -cd [:alpha:]
+    ```
+  - as you can see the option `-c` (complement) causes tr to work on the characters that are NOT in the given set:
+    ```
+    echo “Bank account: 0001 00 12345678” | tr -cd [:digit:]
+    ```
+    
+``
+``
   * ``` ```
   * ``` ```
 
