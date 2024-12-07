@@ -10,7 +10,7 @@
         - [Sequences](#seq)
     2. [WHILE](#while)
     3. [UNTIL](#until)
-    - [Ejemplo](#ejemplo)
+    - [Ejercicio](#ejemplo)
     - [SOLUCIÓN](#solucion)
 
 References: [tutorials](https://ryanstutorials.net/bash-scripting-tutorial/bash-if-statements.php)
@@ -254,7 +254,7 @@ We can also create a script that does exactly the same as the while example abov
 So you may be asking, 'Why bother having the two different kinds of loops?'. We don't necessarily. The while loop would be able to handle every scenario. Sometimes, however, it just makes it a little easier to read if we phrase it with until rather than while.
 
 
-### Ejemplo: <a name="ejemplo"></a>
+### Ejercicio: <a name="ejemplo"></a>
 Supongamos que tenemos un fichero de entrada (por ejemplo index.txt) que incluye una lista con nombres de ficheros. En la lista solo aparece el filename y el filetype de los ficheros pero no su path. Un ejemplo de fichero de entrada podría ser el siguiente:
 ```sh
 $ cat /home/eserrano/cursoUnix/index.txt
