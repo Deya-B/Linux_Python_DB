@@ -5,17 +5,17 @@
     3. [sort](#sort)
     4. [cat {file1} {file2} > {file0}](#cat)
 2. [Redirection](#redirection)
-    1. [](#)
-    2. [](#)
-    3. [](#)
-    4. [](#)
-3. [Third Example](#third-example)
-    1. [](#)
-    2. [](#)
-    3. [](#)
-    4. [](#)
-    5. [](#)
-4. [Fourth Example](#fourth-examplehttpwwwfourthexamplecom)
+    1. [Redirecting the Output](#output)
+    2. [Appending to a file](#appending)
+    3. [Redirecting the Input](#input)
+3. [Pipes](#pipes)
+4. [Linux Commands II](#commandsII)
+    1. [gzip](#gzip)
+    2. [tar](#tar)
+    3. [zcat](#zcat)
+    4. [cut](#cut)
+    5. [tr](#tr)
+5. [Fourth Example](#fourth-examplehttpwwwfourthexamplecom)
     1. [grep *'keyword'* {file}](#grep)
 
 
@@ -67,7 +67,7 @@ Concatenate file1 and file2 to file0.
 Most processes initiated by UNIX commands write to the standard output (that is, they write to the terminal screen), and many take their input from the standard input (that is, they read it from the keyboard). <br>
 There is also the standard error, where processes write their error messages, by default, to the terminal screen.
 
-### Redirecting the Output
+### Redirecting the Output <a name="output"></a>
 ```command > file``` Redirect standard output to a file.
 
 We use the > symbol to redirect the output of a command. For example, to create a file called list1 containing a list of fruit, type 
@@ -88,7 +88,7 @@ cat list1.txt
 >
 > Using the above method, create another file called list2.txt containing the following fruit: orange, plum, mango, grapefruit. Read the contents of list2.txt.
 
-### Appending to a file
+### Appending to a file <a name="appending"></a>
 ```command >> file``` Append standard output to a file.
 
 The form >> appends standard output to a file. So to add more items to the file list1, type
@@ -103,7 +103,7 @@ cat list1.txt list2.txt > biglist.txt
 ```
 What this is doing is reading the contents of list1.txt and list2.txt in turn, then outputting the text to the file biglist.txt
 
-### Redirecting the Input
+### Redirecting the Input <a name="input"></a>
 ```command < file``` Redirect standard input from a file.
 
 We use the < symbol to redirect the input of a command. <br>
@@ -111,7 +111,7 @@ Using < you can redirect the input to come from a file rather than the keyboard.
   * ```sort < biglist.txt``` and the sorted list will be output to the screen.
   * ```sort < biglist.txt > slist.txt``` To output the sorted list to a file. Use cat to read the contents of the file slist.txt
 
-## Pipes
+## Pipes <a name="pipes"></a>
 ```command1 | command2```: pipe the output of command1 to the input of command2.
 
 Suppose that we want to list in reverse order the strings included in the file biglist.txt that do not contain the character "a" <br>
@@ -135,14 +135,14 @@ Other examples:
   * ```ls -lp | grep /```
   * ```ls -lp | grep -v /```
 
-# Linux Commands II
-### gzip
+# Linux Commands II <a name="commandsII"></a>
+### gzip <a name="gzip"></a>
 This reduces the size of a file, thus freeing valuable disk space using the ZIP compressor. For example
   * ```gzip science.txt``` This will compress the file and place it in a file called science.txt.gz
 To expand the file, use the gunzip command.
   * ```gunzip science.txt.gz```
 
-### tar
+### tar <a name="tar"></a>
 In Linux, tar command is useful as it can combine several files into a single uncompressed (or compressed) file. Tar command, also called tape archiving. With the help of this command, the individual files in a directory can be unpacked and extracted from the archive file.
 
 Most used tar options:
@@ -166,16 +166,16 @@ You can do so by appending an ```--exclude``` switch for each directory or file 
 
     * ```tar -czvf archive.tar.gz /home/ubuntu --exclude=*.mp4``` To compress /home/ubuntu excluding all .mp4 files
  
-### zcat
+### zcat <a name="zcat"></a>
 zcat will read gzipped files without needing to uncompress them first.
   * ```zcat science.txt.gz```
   * ```zcat rm.txt.gz | less``` If the text scrolls too fast, pipe the output though less
   
-### cut (and tr)
+### cut <a name="cut"></a>
 The cut command is used for text processing. 
 You can use this command to extract portion of text from a file by selecting columns (fields) or characters.
 For example, let's say you have a file (fruit.txt) which contains the following ASCII text, being the field delimiter the | character:
-``` ruby
+``` sh
 $ cat fruit.txt
 apples|Spain
 oranges|Spain
@@ -185,7 +185,7 @@ to extract the second column type,
 ```cut -d'|' -f2 fruit.txt```
 
 When the field ```delimiter = tab``` you can omit the -d option. For example:
-``` ruby
+``` sh
 $ cat fruit.txt
 apples	Spain		red
 oranges	Spain		juice
@@ -197,9 +197,35 @@ juice
 galia
 green
 ```
+Using a pipe you can connect the standard output of a process with the standard input of the cut command for example:
+``` sh
+ls -l | cut -d' ' -f2,4
+```
+To extract the fields 2 and 4 of the ls -l search.
 
+### tr <a name="tr"></a>
+The **tr** command with the option `-s` is used to translate, delete or squeezing repeated characters. 
+``` sh
+ls -l | tr -s ' '
+```
 
+A combination of **tr** and **cut**:
+``` sh
+ls -l | tr -s ' ' | cut -d' ' -f 4,5 –-output-delimiter='_'
+```
 
+tr is an UNIX utility for translating, or deleting, or squeezing repeated characters. It will read from stdin and write to stdout. 
+``` sh
+echo “Get + and put -” | tr + -
+```
+
+Although tr cannot accept the names of files as arguments, it can be used to modify copies of their contents by using the input/output redirection operators.
+``` sh
+tr '{}' '()' < file1 > file2
+```
+This command will read each character from “file1”, translate if it is a brace, and write the output in the “file2”.
+
+Avoid uwing the output redirection operator to write to the same file from which the text is being read, as this will erase all of the text in that file, including that outputted by tr. Thus, for example, the following should not be used
   * ``` ```
   * ``` ```
 
