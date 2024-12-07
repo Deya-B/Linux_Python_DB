@@ -1,26 +1,26 @@
 # Table of Contents
 1. [Linux Commands I](#commandsI)
-    1. [grep *'keyword'* {file}](#grep)
-    2. [wc {file}](#wc)
-    3. [sort](#sort)
-    4. [cat {file1} {file2} > {file0}](#cat)
+    1. [`grep 'keyword' {file}`](#grep)
+    2. [`wc` {file}](#wc)
+    3. [`sort`](#sort)
+    4. [`cat {file1} {file2} > {file0}`](#cat)
 2. [Redirection](#redirection)
     1. [Redirecting the Output](#output)
     2. [Appending to a file](#appending)
     3. [Redirecting the Input](#input)
-3. [Pipes](#pipes)
+3. [Pipes `|`](#pipes)
 4. [Linux Commands II](#commandsII)
-    1. [gzip](#gzip)
-    2. [tar](#tar)
-    3. [zcat](#zcat)
-    4. [cut](#cut)
-    5. [tr](#tr)
+    1. [`gzip`](#gzip)
+    2. [`tar`](#tar)
+    3. [`zcat`](#zcat)
+    4. [`cut`](#cut)
+    5. [`tr`](#tr)
 5. [Fourth Example](#fourth-examplehttpwwwfourthexamplecom)
     1. [grep *'keyword'* {file}](#grep)
 
 
 # Linux Commands I <a name="commandsI"></a>
-### grep *'keyword'* {file}: <a name="grep"></a>
+### `grep 'keyword' {file}`: <a name="grep"></a>
 Search files for specified words or patterns (regular expressions).
   * ```grep If tempfile.txt``` grep prints each line with the word If. The grep command is case sensitive; it distinguishes between If and if.
   * ```grep -i If tempfile.txt``` To ignore case sensitivity use -i
@@ -44,20 +44,20 @@ If you have a bunch of text files in a directory hierarchy, e.g, in ~/ database/
 grep -rc gmail ~/database/
 ```
 
-### wc {file} (word count): <a name="wc"></a>
+### `wc {file}` (word count): <a name="wc"></a>
 Count number of lines/words/characters in file.
   * ```wc -w tempfile.txt``` To do a word count on tempfile.txt
   * ```wc -l tempfile.txt``` To find out how many lines the file has
   * ```wc tempfile.txt sort.txt``` To print how many lines, word and characters in files tempfile.txt and sort.txt
 
-### sort <a name="sort"></a>
+### `sort` <a name="sort"></a>
 The command sort alphabetically or numerically sorts a list.
   * ```sort```
   Then type in the names of some animals. Press [Return] after each one. <br>
   dog cat bird ape; ^C (control c to stop)
   The output will be: ape bird cat dog
 
-### cat {file1} {file2} > {file0}: <a name="cat"></a>
+### `cat` {file1} {file2} > {file0}: <a name="cat"></a>
 Concatenate file1 and file2 to file0.
   * ```cat list1.txt list2.txt > biglist.txt```<br>
   Example explained further down in "Appending to a file"
@@ -111,7 +111,7 @@ Using < you can redirect the input to come from a file rather than the keyboard.
   * ```sort < biglist.txt``` and the sorted list will be output to the screen.
   * ```sort < biglist.txt > slist.txt``` To output the sorted list to a file. Use cat to read the contents of the file slist.txt
 
-## Pipes <a name="pipes"></a>
+## Pipes `|` <a name="pipes"></a>
 ```command1 | command2```: pipe the output of command1 to the input of command2.
 
 Suppose that we want to list in reverse order the strings included in the file biglist.txt that do not contain the character "a" <br>
