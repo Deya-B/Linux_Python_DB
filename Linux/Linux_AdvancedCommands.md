@@ -79,7 +79,40 @@ Count number of lines/words/characters in file.
   * ```wc tempfile.txt sort.txt``` To print how many lines, word and characters in files tempfile.txt and sort.txt
 
 ### `sort` I <a name="sortI"></a>
-The command sort alphabetically or numerically sorts a list.
+Refer to [`sort` II](#sortII) <br>
+The command sort alphabetically or numerically sorts a list or lines of a file.
+```
+SYNOPSIS
+    sort [OPTION]... [FILE]...
+
+DESCRIPTION
+    Write sorted concatenation of all FILE(s) to standard output.
+
+    -b, --ignore-leading-blanks
+        ignore leading blanks
+    -d, --dictionary-order
+        consider only blanks and alphanumeric characters
+    -f, --ignore-case
+        fold lower case to upper case characters
+    -g, --general-numeric-sort
+        compare according to general numerical value
+    -r, --reverse
+        reverse the result of comparisons
+    -k, --key=KEYDEF
+        sort via a key; KEYDEF gives location and type
+    -t, --field-separator=SEP
+        use SEP instead of non-blank to blank transition
+
+    KEYDEF is F[.C][OPTS][,F[.C][OPTS]] for start and stop position,
+    where F is a field number and C a character position in the
+    field; both are origin 1, and the stop position defaults to the
+    line’s end. If neither -t nor -b is in effect, characters in a
+    field are counted from the beginning of the preceding whitespace.
+    OPTS is one or more single-letter ordering options [bdfgiMhnRrV],
+    which override global ordering options for that key. If no key
+    is given, use the entire line as the key.
+```
+
   * ```sort```
   Then type in the names of some animals. Press [Return] after each one. <br>
   dog cat bird ape; ^C (control c to stop)
@@ -420,15 +453,20 @@ This diff command compares the contents of two files and displays the difference
 > Lines beginning with a < denotes file1, while lines beginning with a > denotes file2.
 
 ### `sort` II<a name="sortII"></a>
+Refer to [`sort` I](#sortI) <br>
 * ```sort data.txt``` - To sort the lines in this file alphabetically
-* ```sort -ru data.txt``` - The option `-u` filters out repeated lines in a file and -r prints the output in reverse order
+* ```sort -ru data.txt``` - The option `-u` filters out repeated lines in a file and `-r` prints the output in reverse order
 
 Normally, sort decides how to sort lines based on the entire line: it compares every character from the first character in a line, to the last one.
 
 If, on the other hand, you want sort to compare a limited subset of your data, you can specify which fields to compare using the `-k` option. The column separator is, by default, any blank character (however you can specify your own using the `-t` option).
 ```sh
 sort -k 2 data.txt
+sort -t "," -k 6,6 adult.data   # Sort by the 6th field
+shuf -i 0-29 | sort             # Sort a random permutation
+shuf -i 0-29 | sort -g          # Sort random permutation (numeric)
 ```
+
 > [!WARNING]  
 > Beware!!
 > Note the output difference of the following two commands
@@ -436,6 +474,7 @@ sort -k 2 data.txt
 >     $ sort -u data.txt | sort -k 2
 >     $ sort -uk 2 data.txt
 > ```
+
 
 ### `find` <a name="find"></a>
 This searches through the directories for files and directories with a given name, date, size, or any other attribute you care to specify. 
