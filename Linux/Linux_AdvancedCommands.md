@@ -27,7 +27,26 @@
 
 # Linux Commands I <a name="commandsI"></a>
 ### `grep 'keyword' {file}`: <a name="grep"></a>
-Search files for specified words or patterns (regular expressions).
+grep searches files for specified words (without regular expressions) or patterns (regular expressions)
+```
+SYNOPSIS
+    grep [OPTIONS] PATTERN [FILE...]
+
+DESCRIPTION
+    grep searches the named input FILEs for lines containing a match to
+    the given PATTERN.
+
+    -i, --ignore-case
+        Ignore case distinctions in both the PATTERN and the input
+        files.
+    -n, --line-number
+        Prefix each line of output with the 1-based line number
+        within its input file.
+    -c, --count
+        Suppress normal output; instead print a count of matching
+        lines for each input file.
+```
+
   * ```grep If tempfile.txt``` grep prints each line with the word If. The grep command is case sensitive; it distinguishes between If and if.
   * ```grep -i If tempfile.txt``` To ignore case sensitivity use -i
 
@@ -37,9 +56,12 @@ Search files for specified words or patterns (regular expressions).
       * -c 🡒 print only the total count of matched lines
 
 ```
-grep -iwvc file tempfile.txt
-  # the number of lines without the words file or File
-``` 
+grep -iwvc file tempfile.txt             # The number of lines without the words file or File
+head -n 100 adult.data | grep -i "Married"  # Display lines that contain the string Married
+head -n 100 adult.data | grep -in "Married" # Same showing line number
+head -n 100 adult.data | grep -c "Married"  # Count number of appearances
+```
+
 The grep command allows to searching in more than one file. If I wanted to search for the string file in my files tempfile.txt and .txt I would do this:
 ```
 grep -ivc file tempfile.txt sort.txt
