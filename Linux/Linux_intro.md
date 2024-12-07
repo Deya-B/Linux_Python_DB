@@ -5,12 +5,18 @@
     3. [The kernel](#kernel)
     4. [The shell](#shell)
     5. [The “Programms”](#programms)
-    6. [](#)
-    7. [](#)
-    8. [](#)
-    9. [](#)
-    10. [](#)
-    11. [](#)
+    6. [Files and processes](#processes)
+    7. [The Directory Structure](#dir)
+    8. [Starting an UNIX terminal](#terminal)
+    9. [Access rights](#access)
+        1. [Access rights on files](#files)
+        2. [Access rights on directories](#dirI)
+        3. [`chmod`: Changing access rights](#chmod)
+    10. [Processes and Jobs](#jobs)
+        1. [Running background processes](#bg)
+        2. [Listing suspended and background processes](#fg)
+        3. [Killing a process](#kill)
+    11. [Other useful UNIX commands](#other)
     12. [](#)
     13. [](#)
 2. [](#)
@@ -84,7 +90,7 @@ To open an UNIX terminal window in the KDE desktop, click on the "Terminal" icon
 
 An UNIX Terminal window will then appear with a $ prompt, waiting for you to start entering commands.
 
-## Access rights on files <a name="files"></a>
+## Access rights <a name="access"></a>
 ```ruby
 $ -rw-r--r-- 1 cursof alumnos 3864 sep 5 10:22 rm.txt
 $ drwxr-xr-x 2 cursof alumnos 4096 sep 5 10:24 backups
@@ -93,7 +99,7 @@ Each file (and directory) has associated access rights. In the left-hand column 
 
 The 9 remaining symbols indicate the permissions, or access rights, and are taken as three groups of 3. The left group of 3 gives the file permissions for the user that owns the file (or directory) (cursof in the above examples); the middle group gives the permissions for the group of people to whom the file (or directory) belongs (alumnos in the above example); the rightmost group gives the permissions for all others.
 
-### Access rights on files <a name="filesI"></a>
+### Access rights on files <a name="files"></a>
 - r (or -), indicates read permission (or otherwise), that is, the presence or absence of permission to read and copy the file
 - w (or -), indicates write permission (or otherwise), that is, the permission (or otherwise) to change a file
 - x (or -), indicates execution permission (or otherwise), that is, the permission to execute a file, where appropriate
