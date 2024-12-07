@@ -163,6 +163,41 @@ A message should be displayed informing the user that the job has been killed. I
 
 ## Other useful UNIX commands  <a name="other"></a>
 * ```df``` The df command reports on the space left on the file system. For example, to find out how much space is left on the file-server
-* ```du```The du command outputs the number of kilobytes used by each subdirectory. Useful if you have gone over quota and you want to find out which directory has the most files. In your home-directory, type ```du -s *```
+* ```du```The du command outputs the number of kilobytes used by each subdirectory. Useful if you have gone over quota and you want to find out which directory has the most files. In your home-directory, type ```du -s 
+
+### history <a name="history"></a>
+history (show command history list).
+```history | grep -i find```
+
+### ssh  <a name="shh"></a>
+To execute a command on a remote Linux server and have the result displayed locally.
+```
+ssh -X remote_host_ip
+```
+Once you have connected to the server, you will probably be asked to verify your identity by providing a password. The -X option to ssh enables X11 and allow you to use your terminal as a graphical terminal (for example you could edit a program in the server side with gedit editor).
+
+To get the remote_remote_host_ip you can run on the remote host the command ifconfig
+```
+$ ifconfig
+# Find in the output:     Direc. inet:150.244.64.50
+```
+So you can enter on the above remote server with ```ssh -X 150.244.64.50```
+
+and then any process that you lunch on this terminal will be executed on the remote server. For example, typing 
+```$ xterm &```
+you will open other xterminal.
+
+To exit back into your local session, simply type:
+```$ exit```
+
+### nohup  <a name="nohub"></a>
+Most of the time you login into remote server via ssh. If you start a shell script or command and you exit (abort remote connection), the process / command will get killed. Sometimes a job or command takes a long time. If you are not sure when the job will finish, then it is better to leave it running in the background. But, if you log out of the system, the job will be stopped and terminated by your shell.
+
+To keep it use the nohup command line-utility: allows to run command/process or shell scripts that can continue running in the background after you log out from a shell. The syntax is as follows:
+```
+nohup <command-name> &
+```
+
+
 
 
