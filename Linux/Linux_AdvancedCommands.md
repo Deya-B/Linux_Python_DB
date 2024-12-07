@@ -74,9 +74,12 @@ Most processes initiated by UNIX commands write to the standard output (that is,
 There is also the standard error, where processes write their error messages, by default, to the terminal screen.
 
 ### Redirecting the Output <a name="output"></a>
-```command > file``` Redirect standard output to a file.
+Most command line programs send their output to the standard output. <br>
+We can redirect the standard output to a file with the > symbol.
 
-We use the > symbol to redirect the output of a command. For example, to create a file called list1 containing a list of fruit, type 
+```command > file```
+
+For example, to create a file called list1 containing a list of fruit, type 
 ```
 cat > list1.txt
 ```
@@ -95,9 +98,11 @@ cat list1.txt
 > Using the above method, create another file called list2.txt containing the following fruit: orange, plum, mango, grapefruit. Read the contents of list2.txt.
 
 ### Appending to a file <a name="appending"></a>
-```command >> file``` Append standard output to a file.
+We can use >> to redirect the standard output appending to a file.
 
-The form >> appends standard output to a file. So to add more items to the file list1, type
+```command >> file``` 
+
+So to add more items to the file list1, type
 ```
 cat >> list1.txt
 ```
@@ -110,15 +115,28 @@ cat list1.txt list2.txt > biglist.txt
 What this is doing is reading the contents of list1.txt and list2.txt in turn, then outputting the text to the file biglist.txt
 
 ### Redirecting the Input <a name="input"></a>
-```command < file``` Redirect standard input from a file.
+Most command line programs read their input from the standard input.
 
-We use the < symbol to redirect the input of a command. <br>
+```command < file``` 
+
 Using < you can redirect the input to come from a file rather than the keyboard. For example, to sort the list of fruit, type <br>
   * ```sort < biglist.txt``` and the sorted list will be output to the screen.
+ To redirect both the input and the output use both > and < in a single system call:
   * ```sort < biglist.txt > slist.txt``` To output the sorted list to a file. Use cat to read the contents of the file slist.txt
 
-## Pipes `|` <a name="pipes"></a>
+## Pipelines `|` <a name="pipes"></a>
+Pipelines allow to redirect the output from a command to the input of another, without writing to files:<br>
 ```command1 | command2```: pipe the output of command1 to the input of command2.
+
+Instead of doing this:
+```sh
+ls > list.txt
+sort < list.txt
+```
+We can do
+```sh
+ls | sort
+```
 
 Suppose that we want to list in reverse order the strings included in the file biglist.txt that do not contain the character "a" <br>
 One method to get a sorted list of names is to type,
