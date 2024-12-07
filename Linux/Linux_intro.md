@@ -1,10 +1,24 @@
-# Linux Introduction
-## UNIX, GNU/Linux?
+# Table of Contents
+1. [Linux Introduction](#intro)
+    1. [UNIX, GNU/Linux?](#unix1)
+    2. [The GNU/Linux operating system](#unix2)
+    3. [`sort` I](#sortI)
+    4. [`cat {file1} {file2} > {file0}`](#cat)
+2. [Redirection](#redirection)
+    1. [Redirecting the Output](#output)
+    2. [Appending to a file](#appending)
+    3. [Redirecting the Input](#input)
+3. [Pipes `|`](#pipes)
+4. [Linux Commands II](#commandsII)
+    1. [`gzip`](#gzip)
+
+# Linux Introduction <a name="intro"></a>
+## UNIX, GNU/Linux? <a name="unix1"></a>
 UNIX is an operating system which was conceived and implemented by Ken Thompson and Dennis Ritchie (both of AT&T Bell Laboratories) in 1969 and first released in 1970. 
 Later they rewrote it in a new programming language, C, to make it portable. The availability and portability of UNIX caused it to be widely adopted, 
 copied and modified by academic institutions and businesses.
 
-## The GNU/Linux operating system
+## The GNU/Linux operating system <a name="unix2"></a>
 The GNU/Linux operating system is made up of three parts; the kernel, the shell and the programs.
 
 ## The kernel
