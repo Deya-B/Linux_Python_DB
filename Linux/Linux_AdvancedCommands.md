@@ -218,6 +218,21 @@ zcat will read gzipped files without needing to uncompress them first.
   * ```zcat rm.txt.gz | less``` If the text scrolls too fast, pipe the output though less
   
 ### `cut` <a name="cut"></a>
+```
+SYNOPSIS
+    cut OPTION... [FILE]...
+DESCRIPTION
+    Print selected parts of lines from each FILE to standard output.
+
+    -d, --delimiter=DELIM
+        use DELIM instead of TAB for field delimiter
+    -f, --fields=LIST
+        select only these fields; also print any line that
+        contains no delimiter character, unless the -s option
+        is specified
+    -s, --only-delimited
+        do not print lines not containing delimiters
+```
 The cut command is used for text processing. 
 You can use this command to extract portion of text from a file by selecting columns (fields) or characters.
 For example, let's say you have a file (fruit.txt) which contains the following ASCII text, being the field delimiter the | character:
@@ -237,12 +252,17 @@ apples	Spain		red
 oranges	Spain		juice
 pears	Israel		galia
 kiwis	SouthAfrica	green
+
 $ cut -f 3 fruit.txt
 red
 juice
 galia
 green
 ```
+
+  * ```cut adult.data -d "," -f 4``` Display the 4th column of file adult.data
+  * ```cut adult.data -d "," -f 4-6``` Columns 4 to 6
+
 Using a pipe you can connect the standard output of a process with the standard input of the cut command for example:
 ``` sh
 ls -l | cut -d' ' -f2,4
