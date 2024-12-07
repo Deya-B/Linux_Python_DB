@@ -303,7 +303,7 @@ ls -l | cut -d' ' -f2,4
 To extract the fields 2 and 4 of the ls -l search.
 
 ### `tr` <a name="tr"></a>
-``` sh
+```
 SYNOPSIS
     tr [OPTION]... SET1 [SET2]
 DESCRIPTION
