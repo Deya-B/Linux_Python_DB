@@ -228,6 +228,21 @@ ls -l | cut -d' ' -f2,4
 To extract the fields 2 and 4 of the ls -l search.
 
 ### `tr` <a name="tr"></a>
+``` sh
+SYNOPSIS
+    tr [OPTION]... SET1 [SET2]
+DESCRIPTION
+    Translate, squeeze, and/or delete characters from standard input,
+    writing to standard output.
+    -c, -C, --complement
+        use the complement of SET1
+    -d, --delete
+        delete characters in SET1, do not translate
+    -s, --squeeze-repeats
+        replace each sequence of a repeated character that is listed
+        in the last specified SET, with a single occurrence of that
+        character
+```
 * The **tr** command with the option `-s` is used to translate, delete or squeezing repeated characters. 
 ``` sh
 ls -l | tr -s ' '
@@ -287,6 +302,15 @@ tr -s '\n' ' ' < data.txt
     cat file2 | tr '[:punct:]' ' ' > file3
       # replace all the punctuation characters in file2 and redirect output to file3
     ```
+* Even more examples:
+  ```sh
+  head -n 100 adult.data | tr ’,’ ’;’             # Replace ’,’ by ’;’
+  head -n 100 adult.data | tr ’a-z’ ’A-Z’         # Capitalize all letters
+  head -n 100 adult.data | tr ’0-9’ ’$’           # Replace all numeric characters by $
+  head -n 100 adult.data | tr -c ’0-9a-zA-Z’ ’-’  # Replace all non alphanumeric characters by -
+  head -n 100 adult.data | tr -d ’0-9’            # Delete all numbers
+  head -n 100 adult.data | tr -s ’ ’              # Eliminate repeated spaces
+  ```
 
 ### `date` <a name="date"></a>
 Prints or sets the system date and time.
