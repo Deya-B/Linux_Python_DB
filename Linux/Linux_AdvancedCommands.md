@@ -2,7 +2,7 @@
 1. [Linux Commands I](#commandsI)
     1. [`grep 'keyword' {file}`](#grep)
     2. [`wc {file}`](#wc)
-    3. [`sort`](#sort)
+    3. [`sort` I](#sortI)
     4. [`cat {file1} {file2} > {file0}`](#cat)
 2. [Redirection](#redirection)
     1. [Redirecting the Output](#output)
@@ -15,16 +15,14 @@
     3. [`zcat`](#zcat)
     4. [`cut`](#cut)
     5. [`tr`](#tr)
-    6. [``](#)
-    7. [``](#)
-    8. [``](#)
-    9. [``](#)
-    10. [``](#)
-    11. [``](#)
-    12. [``](#)
-    13. [``](#)
-    14. [``](#)
-    15. [``](#)
+    6. [`date`](#date)
+    7. [`file`](#file)
+    8. [`stat`](#stat)
+    9. [`basename` (and `dirname`)](#basename)
+    10. [`diff`](#diff)
+    11. [`sort` II](#sortII)
+    12. [`find`](#find)
+    13. [`xargs`](#xargs)
 
 
 # Linux Commands I <a name="commandsI"></a>
@@ -42,7 +40,7 @@ Search files for specified words or patterns (regular expressions).
 grep -iwvc file tempfile.txt
   # the number of lines without the words file or File
 ``` 
-The grep command allows to searching in more than one file. If I wanted to search for the string file in my files tempfile.txt and sort.txt I would do this:
+The grep command allows to searching in more than one file. If I wanted to search for the string file in my files tempfile.txt and .txt I would do this:
 ```
 grep -ivc file tempfile.txt sort.txt
 ```
@@ -58,7 +56,7 @@ Count number of lines/words/characters in file.
   * ```wc -l tempfile.txt``` To find out how many lines the file has
   * ```wc tempfile.txt sort.txt``` To print how many lines, word and characters in files tempfile.txt and sort.txt
 
-### `sort` <a name="sort"></a>
+### `sort` I <a name="sortI"></a>
 The command sort alphabetically or numerically sorts a list.
   * ```sort```
   Then type in the names of some animals. Press [Return] after each one. <br>
@@ -144,13 +142,13 @@ Other examples:
   * ```ls -lp | grep -v /```
 
 # Linux Commands II <a name="commandsII"></a>
-### gzip <a name="gzip"></a>
+### `gzip` <a name="gzip"></a>
 This reduces the size of a file, thus freeing valuable disk space using the ZIP compressor. For example
   * ```gzip science.txt``` This will compress the file and place it in a file called science.txt.gz
 To expand the file, use the gunzip command.
   * ```gunzip science.txt.gz```
 
-### tar <a name="tar"></a>
+### `tar` <a name="tar"></a>
 In Linux, tar command is useful as it can combine several files into a single uncompressed (or compressed) file. Tar command, also called tape archiving. With the help of this command, the individual files in a directory can be unpacked and extracted from the archive file.
 
 Most used tar options:
@@ -174,12 +172,12 @@ You can do so by appending an ```--exclude``` switch for each directory or file 
 
     * ```tar -czvf archive.tar.gz /home/ubuntu --exclude=*.mp4``` To compress /home/ubuntu excluding all .mp4 files
  
-### zcat <a name="zcat"></a>
+### `zcat` <a name="zcat"></a>
 zcat will read gzipped files without needing to uncompress them first.
   * ```zcat science.txt.gz```
   * ```zcat rm.txt.gz | less``` If the text scrolls too fast, pipe the output though less
   
-### cut <a name="cut"></a>
+### `cut` <a name="cut"></a>
 The cut command is used for text processing. 
 You can use this command to extract portion of text from a file by selecting columns (fields) or characters.
 For example, let's say you have a file (fruit.txt) which contains the following ASCII text, being the field delimiter the | character:
@@ -211,7 +209,7 @@ ls -l | cut -d' ' -f2,4
 ```
 To extract the fields 2 and 4 of the ls -l search.
 
-### tr <a name="tr"></a>
+### `tr` <a name="tr"></a>
 * The **tr** command with the option `-s` is used to translate, delete or squeezing repeated characters. 
 ``` sh
 ls -l | tr -s ' '
@@ -272,7 +270,7 @@ tr -s '\n' ' ' < data.txt
       # replace all the punctuation characters in file2 and redirect output to file3
     ```
 
-### date <a name="date"></a>
+### `date` <a name="date"></a>
 Prints or sets the system date and time.
 ```sh
 $ date
@@ -285,7 +283,7 @@ $ date +%T
 21:50:43
 ```
 
-### file <a name="file"></a>
+### `file` <a name="file"></a>
 Prints information from the files. <br>
 **file** tests each argument in an attempt to classify it. <br>
 There are three sets of tests, performed in the following order: file-system tests, magic tests, and language tests. The first test that succeeds causes the file type to be printed.
@@ -301,7 +299,7 @@ uk-500.csv: ASCII English text, with CR line terminators
 uk-500_tab.csv: ASCII English text
 ```
 
-### stat <a name="stat"></a>
+### `stat` <a name="stat"></a>
 Display a file or file system status
 ```sh
 $ stat rm.txt
@@ -313,7 +311,7 @@ $ stat *csv    # use * to access the status of several files together
   * ```stat -c %y rm.txt``` - Time of the last modification - %y 
   * ```stat -c %s rm.txt``` - Print the size in bytes - %s
 
-### basename (and dirname) <a name="basename"></a>
+### `basename` (and `dirname`) <a name="basename"></a>
 The basename command strips any "path" name components from a filename, leaving the "pure" filename.
 ```sh
 $ basename /usr/bin/sort
@@ -331,15 +329,13 @@ $ dirname /home/mikel/bin/stdio.h
 /home/mikel/bin
 ```
 
-### diff <a name="diff"></a>
+### `diff` <a name="diff"></a>
 This diff command compares the contents of two files and displays the differences.
 
 ```diff file1 file2``` To see the differences between file1 and file2
 > Lines beginning with a < denotes file1, while lines beginning with a > denotes file2.
 
-### sort <a name="sort"></a>
-This command sorts lines of a text file. 
-
+### `sort` II<a name="sortII"></a>
 * ```sort data.txt``` - To sort the lines in this file alphabetically
 * ```sort -ru data.txt``` - The option `-u` filters out repeated lines in a file and -r prints the output in reverse order
 
@@ -357,7 +353,7 @@ sort -k 2 data.txt
 >     $ sort -uk 2 data.txt
 > ```
 
-### find <a name="find"></a>
+### `find` <a name="find"></a>
 This searches through the directories for files and directories with a given name, date, size, or any other attribute you care to specify. 
 It is a simple command but with many options - you can read the manual by typing man find. 
 * ```find . -name "*.txt" -print``` - To search for all files with extension .txt, starting at the current directory (.) and exploring through all sub-directories
@@ -369,7 +365,7 @@ It is a simple command but with many options - you can read the manual by typing
 * ```find . -maxdepth 1 -type f``` - To find all the files in the working directory descending until at most one level (be careful with the order of the options in the command)
 There are many other options(for example finding files that are newer or older than other files), consult the manual.
 
-### xargs <a name="xargs"></a>
+### `xargs` <a name="xargs"></a>
 The command xargs is used mainly to combine with other commands.
 * ```find . -maxdepth 1 -name "*.html" -mmin -10 | xargs cp -t kk/``` - to copy files to the kk/ directory
 * ```find -type f | xargs file``` - Get information from files
@@ -383,10 +379,12 @@ $ find . -name "*.c" | xargs rm -rf
 $ ls
 one.h two.h The Geek Stuff.c
 
-# To delete files including those that have spaces in the filenames: use the -print0 option with find command and -0 option with xargs command:
+# To delete files including those that have spaces in the filenames
+use the -print0 option with find command and -0 option with xargs command:
 $ find . -name "*.txt" -print0 | xargs -0 rm -i
 ```
-> The option `print0` indicates `find` > print all results to the standard output (separated with the ASCII NUL character ‘\000’) 
+> The option `print0` indicates `find` to print all results to the standard output (separated with the ASCII NUL character ‘\000’)
+>  
 > The option `-0` tells `xargs` that the input will be separated with the ASCII NUL character ‘\000’
 
 * We can force the output of the xargs into multiple lines using `-n`. In the following examples, we used -n option to adjust the items per line displayed in the xargs output:
