@@ -2,9 +2,15 @@
 1. [Linux Commands III](#commandsIII)
     1. [ `wget`](#wget)
     2. [Filters](#filters)
-    3. [`fmt`](#fmt)
-    4. [](#)
-    5. [](#)
+        1. [`fmt`](#fmt)
+        2. [`split`](#split)
+        3. [`paste`](#paste)
+        4. [`shuf`](#shuf)
+        5. [`uniq`](#uniq)
+        6. [`join`](#join)
+        7. [Summary](#summary)
+        8. [`comm`](#comm)
+    3. [](#)
 2. [](#)
     1. [](#)
 
@@ -121,7 +127,7 @@ echo {1..32562} | tr " " "\n" | paste -d "," - adult.data > adult-nums.data
 ```
 
 ### `shuf`: <a name="shuf"></a>
-Generate random permutations
+Generate random permutations.
 ```
 SYNOPSIS
     shuf [OPTION]... [FILE]
