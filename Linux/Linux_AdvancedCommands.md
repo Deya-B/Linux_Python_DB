@@ -354,10 +354,26 @@ This searches through the directories for files and directories with a given nam
 It is a simple command but with many options - you can read the manual by typing man find. 
 * ```find . -name "*.txt" -print``` - To search for all files with extension .txt, starting at the current directory (.) and exploring through all sub-directories
 * ```find . -name "[a-z][a-z][0-9][0-9].txt"``` - To find all files that begin with two lower case characters, followed by two numbers followed by .txt
+* ```find . -type d``` - `[ -type d ]` To find all directories in your working directory (`-type e` for files)
+* ```find . -size +1M -ls``` - To find files over 1Mb in size
+* ```find /var/adm -mtime +3``` - To find all files that have not been modified in the last three days
+* ```find / -mmin -30``` - To find all directories that have been modified in the last 30 minutes
+* ```find . -maxdepth 1 -type f``` - To find all the files in the working directory descending until at most one level (be careful with the order of the options in the command)
+There are many other options(for example finding files that are newer or older than other files), consult the manual.
 
-* ```t```
-* ```t```
+### xargs <a name="xargs"></a>
+The command xargs is used mainly to combine with other commands.
+* ```t``` -
+* ```t``` -
+* ```t``` -
 
-* ```t```
-* ```t```
-* ```t```
+* ```t``` -
+* ```t``` -
+* ```t``` -
+* ```t``` -
+
+  
+* ```t``` -
+* ```t``` -
+* ```t``` -
+* ```t``` -
