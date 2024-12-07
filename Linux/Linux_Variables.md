@@ -13,7 +13,7 @@ The most common is to set it directly or to set it as the result of processing a
 ## Setting our own variables:
 As well as variables that are preset in the system, we may set our own variables. 
 There are a few ways in which variables may be set (such as part of the execution of a command) but the basic form follows this pattern:
-```
+```sh
 variable=value
 ```
 This is one of those areas where formatting is important.
@@ -26,27 +26,27 @@ A few points on syntax:
 - Shell does not care about the type of variables. Variables could store strings, integers, or real numbers, but always are interpreted as Strings.
 
 * To access the variables, just prefix the variable name with $, which will give you the value stored in that variable.
-```
+```sh
 $ VARIABLE=”Hola mundo”
 $ echo “El valor de la VARIABLE es $VARIABLE”
 ```
 
 * The value stored in a variable can be changed by a subsequent assignment
-```
+```sh
 $ VARIABLE="$VARIABLE soy patata"
 $ echo $VARIABLE
 Hola mundo soy patata
 ```
 
 * If we want that a variable will not be modified we can use the command readonly
-```
+```sh
 $ readonly VARIABLE
 $ VARIABLE="$VARIABLE y te quiero cambiar"
 bash: VARIABLE: variable de sólo lectura
 ```
 
 * To remove the variables we can use the unset command
-```
+```sh
 $ VAR=”hola juan”
 $ unset VAR
 $ echo $VAR
@@ -54,7 +54,7 @@ $ echo $VAR
 
 #### Example.1 Simple Bash Variable Assignment Usage
 The following script called sample.sh creates a variable called DIR and assigns the value “./Desktop/”:
-```
+```sh
 $ cat sample.sh
 #!/bin/bash
 DIR="./Desktop/"
@@ -65,12 +65,12 @@ Create with you favorite editor (for example gedit) the above script and execute
 
 #### Example 2. Command Substitution
 Command substitution allows us to take the output of a command or program (what would normally be printed to the screen) and save it as the value of a variable. To do this we place it within brackets, preceded by a $ sign. For example:
-```
+```sh
 $ DIR=$( pwd )
 $ ls -l $DIR
 ```
 In the following example the value stored in the variable PROC_USER depends on the value of USER.
-```
+```sh
 $ USER=root
 $ PROC_USER=$( ps -ef | grep $USER | wc -l)
 $ echo “Total de procesos ejecutandose por el usuario $USER: $PROC_USER”
@@ -82,7 +82,7 @@ Command line arguments are commonly used. When we run a program on the command l
 For instance we could run the command ls -l /etc. In this case -l and /etc are both command line arguments to the command ls. We can do similar with our bash scripts. To do this we use the variables $1 to represent the first command line argument, $2 to represent the second command line argument and so on. These are automatically set by the system when we run our script so all we need to do is refer to them.
 
 For example the following script (sample2.sh) copy the file stored in the first argument to the second argument and, after the copy has been completed, run the command stat on the destination file just to verify it worked properly.
-```
+```sh
 $ cat sample2.sh
 #!/bin/bash
 # A simple copy script
@@ -94,7 +94,7 @@ stat $2
 ```
 
 Now we are going to execute the above script with the arguments data.txt and data2.txt
-```
+```sh
 $ ./sample2.sh data.txt data2.txt
 $ We are going to copy the file data.txt in data2.txt 
 using the script ./sample2.sh
@@ -131,7 +131,7 @@ Normally this isn't an issue but sometimes, for instance, a script may run anoth
 If we want the variable to be available to the second script then we need to export the variable.
 
 Suppose that we have the following script exportvar1.sh that executes exportvar2.sh
-```
+```sh
 $ cat exportvar1.sh
 #!/bin/bash
 # demonstrate variable scope 1.
@@ -148,7 +148,7 @@ echo Script $0:: Valor de var1: $var1, Valor de var2 : $var2
 ```
 
 Being the script exportvar2.sh
-```
+```sh
 #!/bin/bash
 # demonstrate variable scope 2.
 echo Script $0 :: Valor de var1: $var1, Valor de var2: $var2
@@ -159,7 +159,7 @@ var2=bleh
 ```
 
 Now lets run exportvar1.sh and see what happens:
-```
+```sh
 $ ./exportvar1.sh 
 Script ./exportvar1.sh :: Valor de var1: blah, Valor de var2: foo
 Script ./exportvar2.sh :: Valor de var1: blah, Valor de var2:
@@ -174,7 +174,7 @@ Exporting variables is a one way process. The original process may pass variable
 Depending on what type of work you want your scripts to do you may end up using variable arithmetic a lot or not much at all. It's a reasonable certainty however that you will need to use variable arithmetic at some point.
 
 The key point is to remember that not previously declared variables are strings and therefore the usual arithmetic operators (+, - ,...) are not defined for them. So the next program is incorrect in order to increment the value stored in the variable UNO
-```
+```sh
 $ UNO=1
 $ UNO=$UNO+1
 $ echo $UNO
@@ -187,7 +187,7 @@ The syntax of let is ```let expression```
 where expression is an arithmetic expression to be evaluated. 
 
 As you can see in the next example let , it is a little picky about spaces,
-```
+```sh
 $ UNO=1
 $ let UNO=$UNO+1
 $ echo $UNO
@@ -197,7 +197,7 @@ $ let UNO=$UNO + 1       # --- Spaces around + sign are bad with let
 ```
 
 With the BASH shell, whole arithmetic expressions may be placed inside double parenthesis. This form is more forgiving about spaces.
-```
+```sh
 $ ((e=5))
 $ echo $e
 5
