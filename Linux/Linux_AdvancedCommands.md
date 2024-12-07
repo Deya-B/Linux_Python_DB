@@ -15,8 +15,16 @@
     3. [`zcat`](#zcat)
     4. [`cut`](#cut)
     5. [`tr`](#tr)
-5. [Fourth Example](#fourth-examplehttpwwwfourthexamplecom)
-    1. [grep *'keyword'* {file}](#grep)
+    6. [``](#)
+    7. [``](#)
+    8. [``](#)
+    9. [``](#)
+    10. [``](#)
+    11. [``](#)
+    12. [``](#)
+    13. [``](#)
+    14. [``](#)
+    15. [``](#)
 
 
 # Linux Commands I <a name="commandsI"></a>
@@ -401,15 +409,3 @@ echo "f d c b e a"| xargs -n 1 | sort
 > ```sh
 > find . -name "*.html" | xargs -n 1 cat > all.file
 > ```
-
-
-  * ```t``` -
-* ```t``` -
-* ```t``` -
-* ```t``` -
-
-  
-* ```t``` -
-* ```t``` -
-* ```t``` -
-* ```t``` -
