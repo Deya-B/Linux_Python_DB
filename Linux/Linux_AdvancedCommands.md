@@ -363,11 +363,47 @@ There are many other options(for example finding files that are newer or older t
 
 ### xargs <a name="xargs"></a>
 The command xargs is used mainly to combine with other commands.
-* ```t``` -
-* ```t``` -
-* ```t``` -
+* ```find . -maxdepth 1 -name "*.html" -mmin -10 | xargs cp -t kk/``` - to copy files to the kk/ directory
+* ```find -type f | xargs file``` - Get information from files
 
-* ```t``` -
+* Delete files that have white-spaces in their filenames:
+```sh
+$ touch "The Geek Stuff.txt" #this creates a empty file
+$ ls
+The Geek Stuff.txt
+$ find . -name "*.c" | xargs rm -rf
+$ ls
+one.h two.h The Geek Stuff.c
+
+# To delete files including those that have spaces in the filenames: use the -print0 option with find command and -0 option with xargs command:
+$ find . -name "*.txt" -print0 | xargs -0 rm -i
+```
+> The option `print0` indicates `find` > print all results to the standard output (separated with the ASCII NUL character ‘\000’) 
+> The option `-0` tells `xargs` that the input will be separated with the ASCII NUL character ‘\000’
+
+* We can force the output of the xargs into multiple lines using `-n`. In the following examples, we used -n option to adjust the items per line displayed in the xargs output:
+```sh
+echo "a b c d e f"| xargs -n 1
+echo "a b c d e f"| xargs -n 3
+```
+
+* As we have shown the sort command is used to order file lines. To order sequences use the xargs command pipelined. For example:
+```sh
+echo "f d c b e a"| xargs -n 1 | sort
+```
+
+* Note that `-n` will be mandatory when xargs is combined with commands with a fixed number of arguments.<br>
+  For example, because basename only admits one argument you must type:
+> ```sh
+> find . -name "*.html" | xargs -n 1 basename
+> ```
+> or to concanate several files located on different directories and redirecte the output you can type:
+> ```sh
+> find . -name "*.html" | xargs -n 1 cat > all.file
+> ```
+
+
+  * ```t``` -
 * ```t``` -
 * ```t``` -
 * ```t``` -
