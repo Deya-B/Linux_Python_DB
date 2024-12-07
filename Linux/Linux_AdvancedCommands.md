@@ -1,7 +1,7 @@
 # Table of Contents
 1. [Linux Commands I](#commandsI)
     1. [`grep 'keyword' {file}`](#grep)
-    2. [`wc` {file}](#wc)
+    2. [`wc {file}`](#wc)
     3. [`sort`](#sort)
     4. [`cat {file1} {file2} > {file0}`](#cat)
 2. [Redirection](#redirection)
@@ -204,28 +204,37 @@ ls -l | cut -d' ' -f2,4
 To extract the fields 2 and 4 of the ls -l search.
 
 ### tr <a name="tr"></a>
-The **tr** command with the option `-s` is used to translate, delete or squeezing repeated characters. 
+* The **tr** command with the option `-s` is used to translate, delete or squeezing repeated characters. 
 ``` sh
 ls -l | tr -s ' '
 ```
 
-A combination of **tr** and **cut**:
+* A combination of **tr** and **cut**:
 ``` sh
 ls -l | tr -s ' ' | cut -d' ' -f 4,5 –-output-delimiter='_'
 ```
 
-tr is an UNIX utility for translating, or deleting, or squeezing repeated characters. It will read from stdin and write to stdout. 
+* tr is an UNIX utility for translating, or deleting, or squeezing repeated characters. It will read from stdin and write to stdout. 
 ``` sh
 echo “Get + and put -” | tr + -
 ```
 
-Although tr cannot accept the names of files as arguments, it can be used to modify copies of their contents by using the input/output redirection operators.
+* Although tr cannot accept the names of files as arguments, it can be used to modify copies of their contents by using the input/output redirection operators.
 ``` sh
 tr '{}' '()' < file1 > file2
 ```
-This command will read each character from “file1”, translate if it is a brace, and write the output in the “file2”.
+> This command will read each character from “file1”, translate if it is a brace, and write the output in the “file2”.
 
-Avoid uwing the output redirection operator to write to the same file from which the text is being read, as this will erase all of the text in that file, including that outputted by tr. Thus, for example, the following should not be used
+> [!CAUTION]
+> Avoid using the same output file from the input, this will erase all the text in that file, including the outputted by tr. Thus, the following should not be used: `tr s S < file1 > file1`
+
+* *When numerous characters need to be replaced*: tr can also replace characters in a specified range by their counterparts in another specified range.
+> A range is indicated by inserting a hyphen between the first and last characters and then placing all of this in square brackets.
+``` sh
+cat file2 | tr '[A-Z]' '[a-z]' > file3
+```
+> This will replace every upper case letter in a file named file2 by its lower case counterpart and write the result to a file called file3
+
   * ``` ```
   * ``` ```
 
