@@ -239,6 +239,12 @@ cat file2 | tr '[A-Z]' '[a-z]' > file3
 ``` sh
 echo “eduardo serrano” | tr -d 'dn'
 ```
+
+* `-s` option replaces each sequence of repeated characters that is listed in the last specified set, with a single instance. The following command translates all newlines in the file data.txt into spaces yielding a **single line**.
+```sh
+tr -s '\n' ' ' < data.txt
+```
+
 * More examples:
   - Use the standarized argument [:digit:] to remove all the digits:
     ```sh
@@ -256,26 +262,102 @@ echo “eduardo serrano” | tr -d 'dn'
     ```sh
     cat file2 | tr '[:punct:]' ' ' > file3
       # replace all the punctuation characters in file2 and redirect output to file3
-    ```sh
-  - `-s` option replaces each sequence of repeated characters that is listed in the last specified set, with a single instance. The following command translates all newlines in the file data.txt into spaces yielding a **single line**.
-    ```sh
-    tr -s '\n' ' ' < data.txt
     ```
 
-    
-``
-``
-  * ``` ```
-  * ``` ```
+### date <a name="date"></a>
+Prints or sets the system date and time.
+```sh
+$ date
+jue sep 7 21:50:32 CEST 2017
 
-### zcat
+$ date +%y-%m-%d
+17-09-07
 
-  * ``` ```
-  * ``` ```
-  * ``` ```
+$ date +%T
+21:50:43
+```
 
-### zcat
+### file <a name="file"></a>
+Prints information from the files. <br>
+**file** tests each argument in an attempt to classify it. <br>
+There are three sets of tests, performed in the following order: file-system tests, magic tests, and language tests. The first test that succeeds causes the file type to be printed.
 
-  * ``` ```
-  * ``` ```
-  * ``` ```
+```sh
+$ file rm.txt
+rm.txt: UTF-8 Unicode English text
+```
+It is possible to use the wild-card * to access the information of several files together. For example:
+```sh
+$ file *csv
+uk-500.csv: ASCII English text, with CR line terminators
+uk-500_tab.csv: ASCII English text
+```
+
+### stat <a name="stat"></a>
+Display a file or file system status
+```sh
+$ stat rm.txt
+$ stat *csv    # use * to access the status of several files together
+```
+* To access to the file meta-information individually use the -c command option. For example:
+  * ```stat -c %A rm.txt``` - Print file access rights in human readable format - %A
+  * ```stat -c %U rm.txt``` - Get user name of the owner - %U
+  * ```stat -c %y rm.txt``` - Time of the last modification - %y 
+  * ```stat -c %s rm.txt``` - Print the size in bytes - %s
+
+### basename (and dirname) <a name="basename"></a>
+The basename command strips any "path" name components from a filename, leaving the "pure" filename.
+```sh
+$ basename /usr/bin/sort
+sort
+
+$ basename include/stdio.h
+stdio.h
+
+$ basename /home/mikel/bin/stdio.h .h     # strip a suffix from a filename
+stdio
+```
+The dirname command strips the filename itself, giving you the "directory" part of the pathname:
+```sh
+$ dirname /home/mikel/bin/stdio.h
+/home/mikel/bin
+```
+
+### diff <a name="diff"></a>
+This diff command compares the contents of two files and displays the differences.
+
+```diff file1 file2``` To see the differences between file1 and file2
+> Lines beginning with a < denotes file1, while lines beginning with a > denotes file2.
+
+### sort <a name="sort"></a>
+This command sorts lines of a text file. 
+
+* ```sort data.txt``` - To sort the lines in this file alphabetically
+* ```sort -ru data.txt``` - The option `-u` filters out repeated lines in a file and -r prints the output in reverse order
+
+Normally, sort decides how to sort lines based on the entire line: it compares every character from the first character in a line, to the last one.
+
+If, on the other hand, you want sort to compare a limited subset of your data, you can specify which fields to compare using the `-k` option. The column separator is, by default, any blank character (however you can specify your own using the `-t` option).
+```sh
+sort -k 2 data.txt
+```
+> [!WARNING]  
+> Beware!!
+> Note the output difference of the following two commands
+> ```sh
+>     $ sort -u data.txt | sort -k 2
+>     $ sort -uk 2 data.txt
+> ```
+
+### find <a name="find"></a>
+This searches through the directories for files and directories with a given name, date, size, or any other attribute you care to specify. 
+It is a simple command but with many options - you can read the manual by typing man find. 
+* ```find . -name "*.txt" -print``` - To search for all files with extension .txt, starting at the current directory (.) and exploring through all sub-directories
+* ```find . -name "[a-z][a-z][0-9][0-9].txt"``` - To find all files that begin with two lower case characters, followed by two numbers followed by .txt
+
+* ```t```
+* ```t```
+
+* ```t```
+* ```t```
+* ```t```
