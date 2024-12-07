@@ -120,16 +120,6 @@ echo {1..32562} | tr " " "\n" | paste -d "," /dev/stdin adult.data > adult-nums.
 echo {1..32562} | tr " " "\n" | paste -d "," - adult.data > adult-nums.data
 ```
 
-#### Summary <a name="summary"></a>
-| command | function |
-|------|---------------------|
-| **split** | dividir en bloques disjuntos|
-| **cut** | selección de columnas|
-| **paste** | unir por columnas |
-| **grep** | seleccionar filas con un determinado criterio|
-| **cat** | unir por filas|
-
-
 ### `shuf`: <a name="shuf"></a>
 Generate random permutations
 ```
@@ -235,17 +225,54 @@ join -t "," -1 1 -2 1 f13.txt f17.txt
 # Same but showing all lines of file 1
 join -t "," -1 1 -2 1 -a 1 f13.txt f17.txt
 ```
+> `-1`    indicates the table of the left<br>
+> `1`     is the value from which you want to join
+
+> `-2`    is the table on the right<br>
+>`1`     is the value from which you want to join<br>
+
+- JOIN » joins columns/fields using the keys in common, if a key is not present in one of the sides it desapears. 
+- Left JOIN »  joins fields keeping all the keys on the left
+- Right join » joins fields keeping all the keys on the right
+- Full outer join » joins fields keeping ALL the keys
+
+
+#### Summary <a name="summary"></a>
+| command | function |
+|------|---------------------|
+| **split** | divide in disjunct blocks |
+| **cut** | select columns/fields |
+| **paste** | join by columns/fields (without order) |
+| **join** | join by columns/fields (using the key to join) |
+| **grep** | select rows with a given criteria |
+| **cat** | join rows |
+
+
+### `comm`: <a name="comm"></a>
+Compare sorted files FILE1 and FILE2 line by line.
+```
+SYNOPSIS
+    comm [OPTION]... FILE1 FILE2
+
+DESCRIPTION
+    With no options, produce three-column output. Column one contains
+    lines unique to FILE1, column two contains lines unique to FILE2,
+    and column three contains lines common to both files.
+
+    -1 suppress column 1 (lines unique to FILE1)
+    -2 suppress column 2 (lines unique to FILE2)
+    -3 suppress column 3 (lines that appear in both files)
+```
+Create files a.txt and b.txt
+```sh
+cut adult.data -d "," -f 1-5 | shuf -n 1000 | sort > a.txt
+cut adult.data -d "," -f 1-5 | shuf -n 1000 | sort > b.txt
+```
 
 ```sh
+# Display lines that appear only in file a.txt
+comm -23 a.txt b.txt
 
+# Display lines that appear in both files
+comm -12 a.txt b.txt
 ```
-
-```sh
-
-```
-
-```
-```
-
-* `````` 
-* `````` 
