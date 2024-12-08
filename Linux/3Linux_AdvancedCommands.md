@@ -1,15 +1,15 @@
 # Table of Contents
-1. [Linux Commands I](#commandsI)
+1. [Linux Commands I](#commands1)
     1. [`grep 'keyword' {file}`](#grep)
     2. [`wc {file}`](#wc)
-    3. [`sort` I](#sortI)
+    3. [`sort` I](#sort1)
     4. [`cat {file1} {file2} > {file0}`](#cat)
 2. [Redirection](#redirection)
     1. [Redirecting the Output](#output)
     2. [Appending to a file](#appending)
     3. [Redirecting the Input](#input)
 3. [Pipes `|`](#pipes)
-4. [Linux Commands II](#commandsII)
+4. [Linux Commands II](#commands2)
     1. [`gzip`](#gzip)
     2. [`tar`](#tar)
     3. [`zcat`](#zcat)
@@ -20,12 +20,12 @@
     8. [`stat`](#stat)
     9. [`basename` (and `dirname`)](#basename)
     10. [`diff`](#diff)
-    11. [`sort` II](#sortII)
+    11. [`sort` II](#sort2)
     12. [`find`](#find)
     13. [`xargs`](#xargs)
 
 
-# Linux Commands I <a name="commandsI"></a>
+# Linux Commands I <a name="commands1"></a>
 ### `grep 'keyword' {file}`: <a name="grep"></a>
 grep searches files for specified words (without regular expressions) or patterns (regular expressions)
 ```
