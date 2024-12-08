@@ -42,7 +42,7 @@
   * ```rmdir backups/``` to remove a directory (make sure it is empty first). With this command Linux will not let you remove a non-empty directory.
   * ```rm -r ./backups/``` CAUTION: It is possible to remove directories and their contents recursively using this command: command **rm -r** {directory}
 
-- **cat** {file} (concatenate): The cat (concatenate) command in Linux displays file contents. It reads one or multiple files and prints their content to the terminal. cat is used to view file contents, combine files, and create new files ([very GOOD examples here])(https://phoenixnap.com/kb/linux-cat-command#:~:text=The%20cat%20(concatenate)%20command%20in,files%2C%20and%20create%20new%20files.) .
+- **cat** {file} (concatenate): The cat (concatenate) command in Linux displays file contents. It reads one or multiple files and prints their content to the terminal. cat is used to view file contents, combine files, and create new files ([very GOOD examples here](https://phoenixnap.com/kb/linux-cat-command#:~:text=The%20cat%20(concatenate)%20command%20in,files%2C%20and%20create%20new%20files.)) .
   * ```cat tempfile.txt```
   * ```cat unix1.html unix2.html unix3.html``` To display three files called unix1.html, unix2.html and unix3.html
   > When using cat be warned that it will not pause between page breaks, it literally displays the whole file in one go.
