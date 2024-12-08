@@ -79,7 +79,7 @@ Count number of lines/words/characters in file.
   * ```wc tempfile.txt sort.txt``` To print how many lines, word and characters in files tempfile.txt and sort.txt
 
 ### `sort` I <a name="sort1"></a>
-Refer to [`sort` II](#sortII) <br>
+Refer to [`sort` II](#sort2) <br>
 The command sort alphabetically or numerically sorts a list or lines of a file.
 ```
 SYNOPSIS
@@ -453,7 +453,7 @@ This diff command compares the contents of two files and displays the difference
 > Lines beginning with a < denotes file1, while lines beginning with a > denotes file2.
 
 ### `sort` II <a name="sort2"></a>
-Refer to [`sort` I](#sortI) <br>
+Refer to [`sort` I](#sort1) <br>
 * ```sort data.txt``` - To sort the lines in this file alphabetically
 * ```sort -ru data.txt``` - The option `-u` filters out repeated lines in a file and `-r` prints the output in reverse order
 
