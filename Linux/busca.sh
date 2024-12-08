@@ -46,7 +46,7 @@ OUT_FILE=$3	# Name of the file that will be created to store the results.
 #-------------------------------------------------------------
 
 ## Check number of arguments is correct (3):
-if [ ! $# = 3 ]; then
+if [ $# != 3 ]; then
     echo "ERROR: Missing arguments..."
     echo "Number of arguments passed to the script: $# 
     Provide 3 arguments as follows: 
