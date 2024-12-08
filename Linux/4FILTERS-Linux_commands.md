@@ -248,12 +248,12 @@ join -t "," -1 1 -2 1 -a 1 f13.txt f17.txt
 #### Summary <a name="summary"></a>
 | command | function |
 |------|---------------------|
-| **split** | divide in disjunct blocks |
-| **cut** | select columns/fields |
-| **paste** | join by columns/fields (without order) |
-| **join** | join by columns/fields (using the key to join) |
-| **grep** | select rows with a given criteria |
-| **cat** | join rows |
+| `split`<br> [options] [file] [prefix]<br> Ex: Split the text into 500-line files with: `split -l500 tiny_text --verbose` |  Divide big files into smaller files of 1000-line chunks |
+| `cut` <br> [option] [file]<br> Ex: Extract just the second column: `cut -d',' -f2 example.csv` | Extracts fields or specific sections of a file/piped data.<br> It separates based on: fields, delimiters, byte positions or character positions |
+| `paste`<br> [options] [file1-name] [file2-name]<br> Ex: Contents of two files separated by a comma `paste -d "," file1.txt file2.txt` | Join by columns/fields (without order)<br> Merging multiple files or lines of text into a single file or output |
+| `join`<br> [options] [file1-name] [file2-name]<br> Ex: Join two files based on second field in each file  `join -1 2 -2 1 file1 file2`| Join by columns/fields<br> Merge two different files based on a common field |
+| `grep`<br> '[search_pattern]' [file_name]<br> Ex: Search for a String in Files with Specific Extensions `grep 'ransomware' *.txt` | Search files for a specified textual pattern. Select rows with a given criteria... |
+| `cat`<br> [options] [file_name]<br> Ex: Redirect Contents of Multiple Files `cat test1.txt test2.txt > test3.txt` | Joins by rows. Concatenates or Reads one or multiple files and prints their content row by row to the terminal.<br> `cat` is used to view file contents, combine files, and create new files.  |
 
 
 ### `comm`: <a name="comm"></a>
