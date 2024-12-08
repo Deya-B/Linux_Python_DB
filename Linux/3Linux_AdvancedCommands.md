@@ -15,6 +15,7 @@
     3. [`zcat`](#zcat)
     4. [`cut`](#cut)
     5. [`tr`](#tr)
+    5. [`date`](#date)
     6. [`date`](#date)
     7. [`file`](#file)
     8. [`stat`](#stat)
