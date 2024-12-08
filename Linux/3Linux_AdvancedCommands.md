@@ -15,7 +15,6 @@
     3. [`zcat`](#zcat)
     4. [`cut`](#cut)
     5. [`tr`](#tr)
-    5. [`date`](#date)
     6. [`date`](#date)
     7. [`file`](#file)
     8. [`stat`](#stat)
@@ -453,7 +452,7 @@ This diff command compares the contents of two files and displays the difference
 ```diff file1 file2``` To see the differences between file1 and file2
 > Lines beginning with a < denotes file1, while lines beginning with a > denotes file2.
 
-### `sort` II<a name="sortII"></a>
+### `sort` II <a name="sortII"></a>
 Refer to [`sort` I](#sortI) <br>
 * ```sort data.txt``` - To sort the lines in this file alphabetically
 * ```sort -ru data.txt``` - The option `-u` filters out repeated lines in a file and `-r` prints the output in reverse order
