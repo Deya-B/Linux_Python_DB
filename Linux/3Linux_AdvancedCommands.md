@@ -78,7 +78,7 @@ Count number of lines/words/characters in file.
   * ```wc -l tempfile.txt``` To find out how many lines the file has
   * ```wc tempfile.txt sort.txt``` To print how many lines, word and characters in files tempfile.txt and sort.txt
 
-### `sort` I <a name="sortI"></a>
+### `sort` I <a name="sort1"></a>
 Refer to [`sort` II](#sortII) <br>
 The command sort alphabetically or numerically sorts a list or lines of a file.
 ```
@@ -214,7 +214,7 @@ Other examples:
   * ```ls -lp | grep /```
   * ```ls -lp | grep -v /```
 
-# Linux Commands II <a name="commandsII"></a>
+# Linux Commands II <a name="commands2"></a>
 ### `gzip` <a name="gzip"></a>
 This reduces the size of a file, thus freeing valuable disk space using the ZIP compressor. For example
   * ```gzip science.txt``` This will compress the file and place it in a file called science.txt.gz
@@ -452,7 +452,7 @@ This diff command compares the contents of two files and displays the difference
 ```diff file1 file2``` To see the differences between file1 and file2
 > Lines beginning with a < denotes file1, while lines beginning with a > denotes file2.
 
-### `sort` II <a name="sortII"></a>
+### `sort` II <a name="sort2"></a>
 Refer to [`sort` I](#sortI) <br>
 * ```sort data.txt``` - To sort the lines in this file alphabetically
 * ```sort -ru data.txt``` - The option `-u` filters out repeated lines in a file and `-r` prints the output in reverse order
