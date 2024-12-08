@@ -110,7 +110,7 @@ DESCRIPTION
   * ```head -n -100 adult.data``` Display all the lines in file adult.data except the last 100
 
 ### `tail` [file]: <a name="tail"></a>
-```sh
+```
 SYNOPSIS
   tail [OPTION]... [FILE]...
 DESCRIPTION
@@ -198,7 +198,7 @@ DESCRIPTION
       * -n 🡒 precede each matching line with the line number
       * -c 🡒 print only the total count of matched lines
 
-```
+```Nushell
 grep -iwvc file tempfile.txt             # The number of lines without the words file or File
 head -n 100 adult.data | grep -i "Married"  # Display lines that contain the string Married
 head -n 100 adult.data | grep -in "Married" # Same showing line number
@@ -206,12 +206,12 @@ head -n 100 adult.data | grep -c "Married"  # Count number of appearances
 ```
 
 The grep command allows to searching in more than one file. If I wanted to search for the string file in my files tempfile.txt and .txt I would do this:
-```
+```Nushell
 grep -ivc file tempfile.txt sort.txt
 ```
 _Recursive use uf grep:_ <br>
 If you have a bunch of text files in a directory hierarchy, e.g, in ~/ database/ and you want to find the file where a specific text is defined, then use the -r option of the grep command to do a recursive search. This will perform a recursive search operation trough files for the string "gmail" (as shown below) in the directory ~/database/ and all its sub-directories:
-```
+```Nushell
 grep -rc gmail ~/database/
 ```
 
@@ -278,17 +278,17 @@ We can redirect the standard output to a file with the > symbol.
 ```command > file```
 
 For example, to create a file called list1 containing a list of fruit, type 
-```
+```Nushell
 cat > list1.txt
 ```
 Then type in the names of some fruits. Press [Return/Enter] after each one.
-```
+```Nushell
 pear banana apple
 # ^C [this means press [Ctrl] and [c] to stop]
 ```
 What happens is the cat command reads the standard input (the keyboard) and the > redirects the output, which normally goes to the screen, into a file called list1.txt <br>
 To read the contents of the file, type:
-```
+```Nushell
 cat list1.txt
 ```
 >Exercise:
@@ -301,13 +301,13 @@ We can use >> to redirect the standard output appending to a file.
 ```command >> file``` 
 
 So to add more items to the file list1, type
-```
+```Nushell
 cat >> list1.txt
 ```
 Then type in the names of more fruit, for ex. peach grape orange; ^C (Control C to stop).<br>
 You should now have two files. One contains six fruits, the other contains four fruits.<br>
 We will now use the **cat** command to *join* (concatenate) list1 and list2 into a new file called biglist.
-```
+```Nushell
 cat list1.txt list2.txt > biglist.txt
 ```
 What this is doing is reading the contents of list1.txt and list2.txt in turn, then outputting the text to the file biglist.txt
@@ -327,12 +327,12 @@ Pipelines allow to redirect the output from a command to the input of another, w
 ```command1 | command2```: pipe the output of command1 to the input of command2.
 
 Instead of doing this:
-```sh
+```Nushell
 ls > list.txt
 sort < list.txt
 ```
 We can do
-```sh
+```Nushell
 ls | sort
 ```
 
@@ -412,7 +412,7 @@ DESCRIPTION
 The cut command is used for text processing. 
 You can use this command to extract portion of text from a file by selecting columns (fields) or characters.
 For example, let's say you have a file (fruit.txt) which contains the following ASCII text, being the field delimiter the | character:
-``` sh
+``` Nushell
 $ cat fruit.txt
 apples|Spain
 oranges|Spain
@@ -422,7 +422,7 @@ to extract the second column type,
 ```cut -d'|' -f2 fruit.txt```
 
 When the field ```delimiter = tab``` you can omit the -d option. For example:
-``` sh
+``` Nushell
 $ cat fruit.txt
 apples	Spain		red
 oranges	Spain		juice
@@ -440,7 +440,7 @@ green
   * ```cut adult.data -d "," -f 4-6``` Columns 4 to 6
 
 Using a pipe you can connect the standard output of a process with the standard input of the cut command for example:
-``` sh
+``` Nushell
 ls -l | cut -d' ' -f2,4
 ```
 To extract the fields 2 and 4 of the ls -l search.
@@ -462,22 +462,22 @@ DESCRIPTION
         character
 ```
 * The **tr** command with the option `-s` is used to translate, delete or squeezing repeated characters. 
-``` sh
+``` Nushell
 ls -l | tr -s ' '
 ```
 
 * A combination of **tr** and **cut**:
-``` sh
+``` Nushell
 ls -l | tr -s ' ' | cut -d' ' -f 4,5 –-output-delimiter='_'
 ```
 
 * tr is an UNIX utility for translating, or deleting, or squeezing repeated characters. It will read from stdin and write to stdout. 
-``` sh
+``` Nushell
 echo “Get + and put -” | tr + -
 ```
 
 * Although tr cannot accept the names of files as arguments, it can be used to modify copies of their contents by using the input/output redirection operators.
-``` sh
+``` Nushell
 tr '[]' '()' < file1 > file2
 ```
 > This command will read each character from “file1”, translate if it is a brace, and write the output in the “file2”.
@@ -487,41 +487,41 @@ tr '[]' '()' < file1 > file2
 
 * *When numerous characters need to be replaced*: tr can also replace characters in a specified range by their counterparts in another specified range:
 > A range is indicated by inserting a hyphen between the first and last characters and then placing all of this in square brackets.
-``` sh
+``` Nushell
 cat file2 | tr '[A-Z]' '[a-z]' > file3
 ```
 > This will replace every upper case letter in a file named file2 by its lower case counterpart and write the result to a file called file3
 
 * tr can also be used to remove particular characters using -d option:
-``` sh
+``` Nushell
 echo “eduardo serrano” | tr -d 'dn'
 ```
 
 * `-s` option replaces each sequence of repeated characters that is listed in the last specified set, with a single instance. The following command translates all newlines in the file data.txt into spaces yielding a **single line**.
-```sh
+```Nushell
 tr -s '\n' ' ' < data.txt
 ```
 
 * More examples:
   - Use the standarized argument [:digit:] to remove all the digits:
-    ```sh
+    ```Nushell
     echo “Bank account: 0001 00 12345678” | tr -d [:digit:]
     ```
   - To remove all the characters except digits:
-    ```sh
+    ```Nushell
     echo “Bank account 0001 00 12345678” | tr -cd [:alpha:]
     ```
   - The option `-c` (complement) causes tr to work on the characters that are NOT in the given set:
-    ```sh
+    ```Nushell
     echo “Bank account: 0001 00 12345678” | tr -cd [:digit:]
     ```
   - To remove the punctuation characteres you can replace all the punctuation characters by spaces: 
-    ```sh
+    ```Nushell
     cat file2 | tr '[:punct:]' ' ' > file3
       # replace all the punctuation characters in file2 and redirect output to file3
     ```
 * Even more examples:
-  ```sh
+  ```Nushell
   head -n 100 adult.data | tr ’,’ ’;’             # Replace ’,’ by ’;’
   head -n 100 adult.data | tr ’a-z’ ’A-Z’         # Capitalize all letters
   head -n 100 adult.data | tr ’0-9’ ’$’           # Replace all numeric characters by $
@@ -532,7 +532,7 @@ tr -s '\n' ' ' < data.txt
 
 ### `date` <a name="date"></a>
 Prints or sets the system date and time.
-```sh
+```Nushell
 $ date
 jue sep 7 21:50:32 CEST 2017
 
@@ -548,12 +548,12 @@ Prints information from the files. <br>
 **file** tests each argument in an attempt to classify it. <br>
 There are three sets of tests, performed in the following order: file-system tests, magic tests, and language tests. The first test that succeeds causes the file type to be printed.
 
-```sh
+```Nushell
 $ file rm.txt
 rm.txt: UTF-8 Unicode English text
 ```
 It is possible to use the wild-card * to access the information of several files together. For example:
-```sh
+```Nushell
 $ file *csv
 uk-500.csv: ASCII English text, with CR line terminators
 uk-500_tab.csv: ASCII English text
@@ -561,7 +561,7 @@ uk-500_tab.csv: ASCII English text
 
 ### `stat` <a name="stat"></a>
 Display a file or file system status
-```sh
+```Nushell
 $ stat rm.txt
 $ stat *csv    # use * to access the status of several files together
 ```
@@ -573,7 +573,7 @@ $ stat *csv    # use * to access the status of several files together
 
 ### `basename` (and `dirname`) <a name="basename"></a>
 The basename command strips any "path" name components from a filename, leaving the "pure" filename.
-```sh
+```Nushell
 $ basename /usr/bin/sort
 sort
 
@@ -584,7 +584,7 @@ $ basename /home/mikel/bin/stdio.h .h     # strip a suffix from a filename
 stdio
 ```
 The dirname command strips the filename itself, giving you the "directory" part of the pathname:
-```sh
+```Nushell
 $ dirname /home/mikel/bin/stdio.h
 /home/mikel/bin
 ```
@@ -603,7 +603,7 @@ Refer to [`sort` I](#sort1) <br>
 Normally, sort decides how to sort lines based on the entire line: it compares every character from the first character in a line, to the last one.
 
 If, on the other hand, you want sort to compare a limited subset of your data, you can specify which fields to compare using the `-k` option. The column separator is, by default, any blank character (however you can specify your own using the `-t` option).
-```sh
+```Nushell
 sort -k 2 data.txt
 sort -t "," -k 6,6 adult.data   # Sort by the 6th field
 shuf -i 0-29 | sort             # Sort a random permutation
@@ -613,9 +613,9 @@ shuf -i 0-29 | sort -g          # Sort random permutation (numeric)
 > [!WARNING]  
 > Beware!!
 > Note the output difference of the following two commands
-> ```sh
->     $ sort -u data.txt | sort -k 2
->     $ sort -uk 2 data.txt
+> ```Nushell
+>     sort -u data.txt | sort -k 2
+>     sort -uk 2 data.txt
 > ```
 
 
@@ -637,7 +637,7 @@ The command xargs is used mainly to combine with other commands.
 * ```find -type f | xargs file``` - Get information from files
 
 * Delete files that have white-spaces in their filenames:
-```sh
+```Nushell
 $ touch "The Geek Stuff.txt" #this creates a empty file
 $ ls
 The Geek Stuff.txt
@@ -654,23 +654,23 @@ $ find . -name "*.txt" -print0 | xargs -0 rm -i
 > The option `-0` tells `xargs` that the input will be separated with the ASCII NUL character ‘\000’
 
 * We can force the output of the xargs into multiple lines using `-n`. In the following examples, we used -n option to adjust the items per line displayed in the xargs output:
-```sh
+```Nushell
 echo "a b c d e f"| xargs -n 1
 echo "a b c d e f"| xargs -n 3
 ```
 
 * As we have shown the sort command is used to order file lines. To order sequences use the xargs command pipelined. For example:
-```sh
+```Nushell
 echo "f d c b e a"| xargs -n 1 | sort
 ```
 
 * Note that `-n` will be mandatory when xargs is combined with commands with a fixed number of arguments.<br>
   For example, because basename only admits one argument you must type:
-> ```sh
+> ```Nushell
 > find . -name "*.html" | xargs -n 1 basename
 > ```
 > or to concanate several files located on different directories and redirecte the output you can type:
-> ```sh
+> ```Nushell
 > find . -name "*.html" | xargs -n 1 cat > all.file
 > ```
 
@@ -699,7 +699,7 @@ echo "f d c b e a"| xargs -n 1 | sort
 GNU Wget is a free utility for non-interactive download of
 files from the Web. It supports HTTP, HTTPS, and FTP
 protocols, as well as retrieval through HTTP proxies.
-```sh
+```Nushell
 wget archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data
 ``` 
 
@@ -707,7 +707,7 @@ wget archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data
 - A filter is a program that reads the standard input, performs some operation on it, and writes the result to the standard output.
 - Filters are usually combined using pipelines.
 - Some programs that can be used as filters: ``head, tail, tr, fmt, grep, sort``.
-```sh
+```Nushell
 ls -la | grep 2016 | sort | head | tr ’[0-9]’ ’*’
 ``` 
 
@@ -735,7 +735,7 @@ DESCRIPTION
         maximum line width (default of 75 columns)
 ```
 
-```sh
+```Nushell
 # Display the first lines of file adult.data cropping lines to 70 characters
 head -n 100 adult.data | fmt -70 -s
 
@@ -761,7 +761,7 @@ DESCRIPTION
         generate CHUNKS output files; see explanation below
 ```
 
-```sh
+```Nushell
 # Split the file adult.data into pieces with 10000 lines each (last piece is probably smaller)
 split -l 10000 adult.data adult_part_
 
@@ -783,7 +783,7 @@ DESCRIPTION
         reuse characters from LIST instead of TABs
 ```
 
-```sh
+```Nushell
 # Create files f2.txt and f6.txt from adult.data
 cut adult.data -d "," -f 2 > f2.txt 
 cut adult.data -d "," -f 6 > f6.txt
@@ -797,7 +797,7 @@ cut adult.data -d "," -f 6 > columna6.txt
 paste -d "|" columna6.txt columna4.txt > columns6and4.txt`
 ```
 
-```sh
+```Nushell
 # Add a first column with the line number to file adult.data
 echo {1..32562} | tr " " "\n" > nums.txt
 paste -d "," nums.txt adult.data > adult-nums.data
@@ -823,7 +823,7 @@ DESCRIPTION
         output lines can be repeated
 ```
 
-```sh
+```Nushell
 # Create a random permutation of numbers 2 to 9
 shuf -i 2-9
 
@@ -863,7 +863,7 @@ DESCRIPTION
     adjacent.
 ```
 Combined with sort, is possible to gather repeated lines together, then with uniq we remove repeated lines.
-```sh
+```Nushell
 # Display the unique values of field 6 in adult.data
 cut -d "," -f 6 adult.data | sort | uniq
 
@@ -873,7 +873,7 @@ cut -d "," -f 6 adult.data | sort | uniq -c
 
 ### `join`: <a name="join"></a>
 Join lines of two files on a common field.
-```sh
+```
 SYNOPSIS
     join [OPTION]... FILE1 FILE2
 
@@ -901,12 +901,12 @@ DESCRIPTION
     Important: FILE1 and FILE2 must be sorted on the join fields.
 ```
 1. Create files f13.txt and f17.txt from adult-nums.data
-```sh
+```Nushell
 cut adult-nums.data -d "," -f 1,3 | shuf -n 1000 | sort -t "," -k 1,1 > f13.txt
 cut adult-nums.data -d "," -f 1,7 | shuf -n 1000 | sort -t "," -k 1,1 > f17.txt
 ```
 2. Join them on the first field
-```sh
+```Nushell
 join -t "," -1 1 -2 1 f13.txt f17.txt
 
 # Same but showing all lines of file 1
@@ -951,12 +951,12 @@ DESCRIPTION
     -3 suppress column 3 (lines that appear in both files)
 ```
 Create files a.txt and b.txt
-```sh
+```Nushell
 cut adult.data -d "," -f 1-5 | shuf -n 1000 | sort > a.txt
 cut adult.data -d "," -f 1-5 | shuf -n 1000 | sort > b.txt
 ```
 
-```sh
+```Nushell
 # Display lines that appear only in file a.txt
 comm -23 a.txt b.txt
 
