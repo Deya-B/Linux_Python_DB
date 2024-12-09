@@ -953,7 +953,17 @@ DESCRIPTION
         join on this FIELD of file 2
     -i, --ignore-case
         ignore differences in case when comparing fields
-
+    -o List
+		Constructs an output line to comprise the fields specified in the List variable.
+		One of the following forms applies to the List variable:
+			FileNumber.Field
+				Where FileNumber is a file number and Field is a decimal-integer
+				field number.
+				Separate multiple fields with a , (comma) or space characters
+				with quotation marks around the multiple fields.
+			0 (zero)
+				Represents the join field.
+				The -o 0 flag essentially selects the union of the join fields.
     Important: FILE1 and FILE2 must be sorted on the join fields.
 ```
 1. Create files f13.txt and f17.txt from adult-nums.data
@@ -979,6 +989,10 @@ join -t "," -1 1 -2 1 -a 1 f13.txt f17.txt
 - Right join » joins fields keeping all the keys on the right
 - Full outer join » joins fields keeping ALL the keys
 
+3. Display only the key and the field 2 of the second file:
+```Nushell
+join -t "," -1 1 -2 1 -o 2.1 2.2 f13.txt f17.txt
+```
 
 #### Summary <a name="summary"></a>
 | command | function |
