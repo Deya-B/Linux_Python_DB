@@ -840,7 +840,63 @@ head adult-nums.data | cut -d, -f 1-4 | shuf -r -n 10
 
 # Sort random permutation (numeric)
 shuf -i 0-29 | sort -g
-``` 
+```
+Create a script that takes 3 variables as arguments: csv file name, a (number 1) and b (number 2).
+The script must produce a new file with columns a and b of csv file.
+```Nushell
+#!/bin/bash
+# ------------------------------------------------------
+# 	    Arguments
+# ------------------------------------------------------
+file=$1	# csv file-name (input file)
+a=$2	# number 1
+b=$3	# number 2
+# ------------------------------------------------------
+# 	    Checkpoints
+# ------------------------------------------------------
+# Check number of arguments is correct (3):
+if [ $# != 3 ]; then
+    echo "ERROR: Missing arguments..."
+    echo "Number of arguments passed to the script: $#
+    Provide 3 arguments as follows:
+    filename.csv number1 number2" >&2
+  exit
+fi
+
+# Check if .csv file exists:
+if [ ! -f $f ]; then
+	echo "ERROR: \"$f\" does not exist" >&2
+	exit 123
+fi
+# ------------------------------------------------------
+#       Script
+# ------------------------------------------------------
+# Get total number of lines, number them and create a temp file:
+lines="$(wc -l $file | cut -d " " -f 1)"
+		# wc -l: count number of lines in the given file
+		# cut -d "" -f 1: keep from the result of wc -l 
+		# (num-lines + filename) only the total number of lines.
+shuf -i 1-$lines | sort -g | tr " " "\n" | paste -d "," - $file | tr -d " " > file-nums.tmp
+		# Create numbers ranging (-i) from 1-total lines
+		# Sort them
+		# Change empty spaces for line break
+		# Create a new column in the file with the numbers	
+		# Remove all empty spaces from the final result
+		# Create a new temporary file with results
+
+# Extract column $a and column $b from the temp. file and sort the results:
+cut file-nums.tmp -d "," -f 1,$a | sort -g > a.tmp
+cut file-nums.tmp -d "," -f 1,$b | sort -g > b.tmp
+
+# Join and Display results:
+join -t "," -1 1 -2 1 a.tmp b.tmp > joinedData.csv
+   # -t: to separate by ","; [-1 1 -2 1]: Join by field 1 files a.tmp and b.tmp
+echo "**A file called joinedData.csv with the extracted columns was just created.**"
+echo "These are the 10 first lines of that file:"
+head joinedData.csv
+
+# ------------------------------------------------------
+```
 
 ### `uniq`: <a name="uniq"></a>
 Report or omit repeated adjacent lines.
@@ -962,4 +1018,54 @@ comm -23 a.txt b.txt
 
 # Display lines that appear in both files
 comm -12 a.txt b.txt
+```
+**Shell script - Exercise 7**: Write a shell script that accepts 3 arguments: f, a, b.  The argument f is the name of a csv file; the arguments a and b are integer numbers. The script must display the list of values that appear in (both) columns a and b of file f.
+
+```Nushell
+#!/bin/bash
+# -----------------------------------------------------------------------
+# 	Arguments
+# -----------------------------------------------------------------------
+
+f=$1	# csv file-name (input file)
+a=$2	# number 1
+b=$3	# number 2
+
+# -----------------------------------------------------------------------
+#	Checkpoints
+# -----------------------------------------------------------------------
+
+# Check number of arguments is correct (3):
+if [ $# != 3 ]; then
+    echo "ERROR: Missing arguments..."
+    echo "Number of arguments passed to the script: $#
+    Provide 3 arguments as follows:
+    filename.csv number1 number2" >&2
+  exit
+fi
+
+# Check if .csv file exists:
+if [ ! -f $f ]; then
+	echo "ERROR: \"$f\" does not exist" >&2
+	exit 123
+fi
+
+# -----------------------------------------------------------------------
+#	Script
+# -----------------------------------------------------------------------
+
+# Extract column $a and column $b from $f and sort the results:
+cut $f -d "," -f $a | sort -g > a.tmp
+cut $f -d "," -f $b | sort -g > b.tmp
+
+# Display, if there are, the values that appear in both columns:
+comparison="$(comm --nocheck-order -12 a.tmp b.tmp)"
+			# --nocheck-order: to remove the prompts of order produced by comm
+if [[ $comparison ]]; then
+	echo "The values that appear in both indicated columns are:"
+	echo "$comparison"
+else
+	echo "No values in common."
+fi
+
 ```
