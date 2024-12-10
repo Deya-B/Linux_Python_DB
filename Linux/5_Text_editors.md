@@ -165,14 +165,30 @@ Emacs commands involve the use of:
     - `M-<car>` Means: Hold the ALT key while typing car.
 - \>> on the left side: indicate instructions for you tu use a command
 
+#### Moving around:
 
-********************
-```sh
+- `C-v` Pass to next page
+- `C-m` Go to previous page
+- `C-l` Show all the text around the pointer. C-l moves you where the pointer is centered in the text. When pressed again moves the text till the pointer is on the top of the screen, and when pressed again moves the text till the pointer is at the bottom of the screen.
+- Pointer movement:
+  ```emacs
+  C-f      forward one character 
+  C-b      backwards one character
+  
+  M-f      foward a word    
+  M-b      backwards a word
 
-```
+  C-n      next line
+  C-p      previous line
 
-```
-```
+  C-a      start of line
+  C-e      end of line
 
-* `````` 
-* `````` 
+  M-a      start of paragraph
+  M-e      end of paragraph
+
+  M-<        begining of the file
+  M-shift->  end of the file
+  ```
+
+  
