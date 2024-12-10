@@ -14,8 +14,6 @@
 | `[^abc]` |match any character NOT in the group in the brackets.<br> Example: `[^0-9]`→ Find anything that is NOT a number |
 | `*` | after a character or expression means zero or more repetitions.<br> Example: `[0-9]*`→ Match all characters from 1-9 (here we do find all characters of 1996 together. Check it out with `grep -o "[0-9]*"`) | 
 
-
-
 #### Examples with files:
 - Lines with... any character (.), starting with (^), ending with ($):
   ```Nushell
@@ -32,3 +30,27 @@
   head -n 100 adult.data | grep "[^0-9]*"                # Lines containing non numerical data
   ```
   
+#### Deeper analysis into what is happening:
+```Nushell
+$ cat myfile.txt | grep "[^0-9]*"
+
+```
+
+
+
+```Nushell
+
+```
+
+```Nushell
+
+```
+```Nushell
+
+```
+```Nushell
+
+```
+```Nushell
+
+```
