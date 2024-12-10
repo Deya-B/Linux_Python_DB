@@ -170,7 +170,7 @@ DESCRIPTION
 
 # Linux Commands I <a name="commands1"></a>
 ### `grep 'keyword' [file]`: <a name="grep"></a>
-grep searches files for specified words (without regular expressions) or patterns (regular expressions)
+grep searches files for specified words or patterns (regular expressions)
 ```
 SYNOPSIS
     grep [OPTIONS] PATTERN [FILE...]
@@ -204,6 +204,8 @@ head -n 100 adult.data | grep -i "Married"  # Display lines that contain the str
 head -n 100 adult.data | grep -in "Married" # Same showing line number
 head -n 100 adult.data | grep -c "Married"  # Count number of appearances
 ```
+
+- The grep patterns [(see regular expressions)](https://github.com/Deya-B/Linux_Python_DB/blob/main/Linux/Regular_expressions.md)
 
 The grep command allows to searching in more than one file. If I wanted to search for the string file in my files tempfile.txt and .txt I would do this:
 ```Nushell
