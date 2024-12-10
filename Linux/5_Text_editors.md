@@ -150,12 +150,19 @@ As you should be able to see vi is extremely powerful as an editor, but not nece
 
 [GNU Emacs Reference Card](https://www.gnu.org/software/emacs/refcards/pdf/refcard.pdf)
 
-Start emacs with the command: ```emacs```
+## Basic usage
+- Start emacs with the command: `emacs`
+- Launch the emacs tutorial by typing: `Ctrl+h t`
+- Exit: `C-x C-c`
+- Cancel a partially introduced command: `C-g`
 
-Launch the emacs tutorial by typing: ```Ctrl+h t```
-
-Follow the tutorial to learn the basic usage
-
+Emacs commands involve the use of:
+- the Control key (called CTRL or CTL) here is called C. For example:
+    - `C-\<car\>` Means: Hold the CTRL key while typing the character car.
+    - `C-f>` Means: Hold the Control key and type f.
+- the Meta key (called EDIT or ALT) here is called M. For example:
+    - `M-\<car\>` Means: Hold the ALT key while typing car.
+- >> on the left side: indicate instructions for you tu use a command
 
 
 ********************
