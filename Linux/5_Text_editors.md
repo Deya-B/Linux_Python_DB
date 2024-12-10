@@ -43,11 +43,12 @@ Save the file that you are in:
 
 ### Navigation, copy/paste and editing in vi
 1. We will enter a file to Edit it... but let's start at the bottom of the file.
-    > [!TIP]
-    > Opening a file with THE "+" OPTION opens the file and places the cusor at the end of the file. Handy for long config files.
-    ```Nushell
-    vi + longfile.txt
-    ```
+  > [!TIP]
+  > Opening a file with THE "+" OPTION opens the file and places the cusor at the end of the file. Handy for long config files.
+
+  ```Nushell
+  vi + longfile.txt
+  ```
 2. Go to the first line of the file. Then go to line 10...
     ```Nushell
     :1
@@ -158,11 +159,11 @@ As you should be able to see vi is extremely powerful as an editor, but not nece
 
 Emacs commands involve the use of:
 - the Control key (called CTRL or CTL) here is called C. For example:
-    - `C-\<car\>` Means: Hold the CTRL key while typing the character car.
-    - `C-f>` Means: Hold the Control key and type f.
+    - `C-<car>` Means: Hold the CTRL key while typing the character car.
+    - `C-f` Means: Hold the Control key and type f.
 - the Meta key (called EDIT or ALT) here is called M. For example:
-    - `M-\<car\>` Means: Hold the ALT key while typing car.
-- >> on the left side: indicate instructions for you tu use a command
+    - `M-<car>` Means: Hold the ALT key while typing car.
+- \>> on the left side: indicate instructions for you tu use a command
 
 
 ********************
