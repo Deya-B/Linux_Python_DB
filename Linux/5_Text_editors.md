@@ -109,20 +109,22 @@ Save the file that you are in:
     ```
 
 6. Now let’s exit from the file and not save the few changes we’ve made.
-```Nushell
-:q!
-```
-#### More practice:
+  ```Nushell
+  :q!
+  ```
+### More practice:
 As you should be able to see vi is extremely powerful as an editor, but not necessarily intuitive. The best way to get good at using vi is to practice.
 
-Open a file and practice the following:
-- Moving around:
+#### Open a file and practice the following
+##### Moving around:
   - By word  `w` or `b`
   - End of line `A` or `$`
   - Start of line `^`
   - Top of file `1G`
   - Bottom of file `G`
   - To an absolute line number `:n`
+
+##### Copy, paste, search, replace:
 - Copying and pasting multiple lines (use vi commands,`nyy`)
 - Copying and pasting single lines (use vi commands, `yy` & `P` or `p`)
 - Copying and pasting multiple lines (use your mouse buffer)
