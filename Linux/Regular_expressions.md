@@ -12,7 +12,7 @@
 | `$` | only match THOSE at the END of a line. <br> Example 1: `pepito$`→ Lines that have pepito at the end of the line.<br> Example 2: `^pepito$`→ Lines that ONLY have the word pepito| 
 |`[abc]`| match ANY character WITHIN the brackets.<br> Example 1: `pepit[aei]`→ Find pepita, pepite, pepiti. <br> Example 2: `[0-9]`→ Match one character from 0-9 (it finds all numbers, but counts them as individual matches; for example if there is 1996, it finds it as 1,9,9,6) | 
 | `[^abc]` |match any character NOT in the group in the brackets.<br> Example: `[^0-9]`→ Find anything that is NOT a number |
-| `*` | after a character or expression means zero or more repetitions.<br> Example 1: `[0-9]*`→ Match all characters from 1-9 (here we do find all characters of 1996 together. Check it out with `grep -o "[0-9]*"`) <br> Example 2: "a*" → Match a or a with any-(but only one)-thing next to it | 
+| `*` | after a character or expression means zero or more repetitions.<br> Example 1: `[0-9]*`→ Match any number (from none to any number) of characters from 0-9 (here we do find all characters of 1996 together. Check it out with `grep -o "[0-9]*"`) <br> Example 2: "a*" → Match a or a with any-(but only one)-thing next to it | 
 
 ### 1.1 Examples with files:
 - Lines with... any character (.), starting with (^), ending with ($):
@@ -21,13 +21,22 @@
   head -n 100 adult.data | grep "Mexico, <=50K$"   # Display all lines ending with “Mexico, <=50K”
   head -n 100 adult.data | grep ".th"              # Display all lines 
   ```
+  
 - Mixing with numbers within `[]`:
   ```Nushell
   containing “th” preceded by any character
-  head -n 100 adult.data | grep "[0-9]th"                # Lines containing “th” preceded by any numeric character
-  head -n 100 adult.data | grep "[1-9][0-9]*th"          # Preceded by any number
-  head -n 100 adult.data | grep "^[1-9][0-9]*, Private"  # Lines whose first field is a number and whose second field is “Private”
-  head -n 100 adult.data | grep "[^0-9]*"                # Lines containing non numerical data
+  head -n 100 adult.data | grep "[0-9]th"
+  # Lines containing "th" preceded by any numeric character
+
+  head -n 100 adult.data | grep "[1-9][0-9]*th"
+  # "th" preceded by any number from 1-9 of minimum 1 digit followed by any number with an unlimited amount of digits
+  # All the followings will match the expression: 1th, 15th, 2th, 2333th
+
+  head -n 100 adult.data | grep "^[1-9][0-9]*, Private"
+  # Lines whose first field is a number and whose second field is “Private”
+
+  head -n 100 adult.data | grep "[^0-9]*"
+  # Lines containing non numerical data
   ```
   
 ### 1.2 Deeper analysis into what is happening:
@@ -85,12 +94,53 @@ And with these is something else...
 
 `cat splice.data | grep -E "GTA(GTA)*"` = `cat splice.data | grep "GTA\(GTA\)*"` <br> The 1st expression with **-E** option is equal to the 2nd without -E option.
 
+#### Alternation
+- The | symbol indicates alternative matches
+
+- Lines containing either GACC or TCAG (or both)
+  ```Nushell
+  cat splice.data | grep -E "GACC|TCAG"
+  ```
+
+- Lines containing one or more consecutive pairs of equal letters
+  ```Nushell
+  cat splice.data | grep -E "(AA|GG|TT|CC)(AA|GG|TT|CC)*"
+  ```
+
+#### Quantifiers
+After any grouped expression = expression in `()`:
+- The symbol `*` means **zero or more** repetitions
+```Nushell
+cat splice.data | grep -E "(GACC)*"
+```
+- The symbol `?` means **zero or one** repetitions
+```Nushell
+cat splice.data | grep -E "(GACC)?"
+```
+- The symbol `+` means **one or more** repetitions
+```Nushell
+cat splice.data | grep -E "(GACC)+"
+```
+- `{N}`, where N is a number, means **exactly N** repetitions
+```Nushell
+cat splice.data | grep -E "(GACC){3}"
+```
+- {N,M}, where N<M, means **between N and M** repetitions
+```Nushell
+cat splice.data | grep -E "(GACC){3,5}"
+```
+
+
 
 
 ```Nushell
 
 ```
 
+
+```Nushell
+
+```
 
   
 ```Nushell
