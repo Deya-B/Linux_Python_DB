@@ -43,12 +43,25 @@ cat myfile.txt | grep "^[^0-9]*$"
 ```
 ![cat myfile.txt | grep "^[^0-9]*$"](./imagesregex/Captura%20desde%202024-12-10%2020-45-32.png)
 In this we can se the result of using `^[^0-9]*$` instead. As observed only lines that DO NOT CONTAIN numeric characters are displayed.
+
+The following expression extracts the opposite, **lines that contain only numbers**:
 ```Nushell
+cat myfile.txt | grep "^[0-9]*$"
+```
 
 #### Escaping Meta-characteres
-```
+If we want to search for a character that has a special meaning (such
+as . or ∧), we have to precede it with a backslash \
 ```Nushell
+head -n 100 adult.data | grep "^[A-Z].*\.$" # Lines starting with a capital letter and ending with a period/dot
+head -n 100 adult.data | grep "^\^"         # Lines that start with the ∧ symbol
+```
 
+### Splice-junction Gene Sequences data set
+For the following examples you must download the splice.data file:
+```Nushell
+wget https://archive.ics.uci.edu/ml/machine-learning-databases/
+molecular-biology/splice-junction-gene-sequences/splice.data
 ```
 ```Nushell
 
