@@ -36,10 +36,15 @@ echo {9..1}
 Brace expansions can be nested
 ```Nushell
 echo {X{1,2},Y{3,4}}
+X1 X2 Y3 Y4
+
+echo x{a..c}{1..3}
+xa1 xa2 xa3 xb1 xb2 xb3 xc1 xc2 xc3
+
 echo {X,Y}{1..4}
 ```
 
-A single line command that, using brace expansion,
+Exercise: A single line command that, using brace expansion,
 creates the list of directories mmm-yy, where mmm is a month (jan,
 feb,...) and yy is a year (16, 17, 18)
 ```Nushell
@@ -224,6 +229,9 @@ echo $(ls)  # Print with echo the output of ls
 mkdir $(cut -d "," -f 4 adult.data | sort | uniq)
 # Make directories with the names of the unique values in the 4th
 column of adult.data
+
+rm -fr $(cut -d "," -f 4 adult.data | sort | uniq)
+# To delete the directories recursively
 ```
 
 ### Process substitution
