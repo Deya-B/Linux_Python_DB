@@ -169,7 +169,33 @@ grep - E -o "a([^a][^a])*"
 ```
 
 
+# Expansions
+## Arithmetic expansion
+Expressions of the form `$((oper))` where oper is any operation with integer numbers, are expanded by the
+shell to their corresponding value. Examples:
+```Nushell
+echo $((4+3))
+echo $((10/3))
+```
+## Brace expansion
+Expressions of the form `{list}` where list is a comma separated list of strings, are expanded by the shell as
+follows:
+```Nushell
+echo {A,B,C}             # Print the list A B C
+echo ho{rs,m,p,roscop}e  # Print the list horse home hope horoscope
+```
 
+
+```Nushell
+
+```
+
+```Nushell
+
+```
+```Nushell
+
+```
 ```Nushell
 
 ```
