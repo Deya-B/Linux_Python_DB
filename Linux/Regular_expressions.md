@@ -97,7 +97,7 @@ And with these is something else...
 #### Alternation
 - The | symbol indicates alternative matches
 
-- Lines containing either GACC or TCAG (or both)
+- Lines containing either GACC or TCAG
   ```Nushell
   cat splice.data | grep -E "GACC|TCAG"
   ```
@@ -110,32 +110,59 @@ And with these is something else...
 #### Quantifiers
 After any grouped expression = expression in `()`:
 - The symbol `*` means **zero or more** repetitions
-```Nushell
-cat splice.data | grep -E "(GACC)*"
-```
+  ```Nushell
+  cat splice.data | grep -E "(GACC)*"
+  cat splice.data | grep -E "(AA|GG)(AA|GG|TT|CC)*"
+    # Matches with one of the first group in brackets, ie
+    #   matches starting with AA or GG and continuing with
+    #   zero or any number of the second group in braquets
+    # Meaning: groups of 2 or any
+  ```
 - The symbol `?` means **zero or one** repetitions
-```Nushell
-cat splice.data | grep -E "(GACC)?"
-```
+  ```Nushell
+  cat splice.data | grep -E "(GACC)?"
+  cat splice.data | grep -E "(AA|GG)(AA|GG|TT|CC)?"
+    # Matches with one of the first group in brackets
+    #   and zero or one of the second group
+    # Meaning: groups of 2 or 4
+  ```
 - The symbol `+` means **one or more** repetitions
+  ```Nushell
+  cat splice.data | grep -E "(GACC)+"
+  cat splice.data | grep -E "(AA|GG)(AA|GG|TT|CC)+"
+    # Matches with one of the first group in brackets 
+    #   and one or more of the second group
+    # Meaning: groups of 4 or many
+  ```
+  
+- **Mix and match:** Find the first group (0 or 1 reps) and the second group (0 or any rep):
 ```Nushell
-cat splice.data | grep -E "(GACC)+"
+cat splice.data | grep -E "(GACC)?(GACC)*
 ```
+
 - `{N}`, where N is a number, means **exactly N** repetitions
-```Nushell
-cat splice.data | grep -E "(GACC){3}"
-```
+  ```Nushell
+  cat splice.data | grep -E "(GACC){3}"
+  ```
 - `{N,M}`, where N<M, means **between N and M** repetitions
+  ```Nushell
+  cat splice.data | grep -E "(GACC){3,5}"
+  ```
+  
+- **Mix and match:** Find the first group (from 1 to 3 reps) and the second group (exactly 4 reps):
 ```Nushell
-cat splice.data | grep -E "(GACC){3,5}"
+cat splice.data | grep -E "(G){1-3}(GC){4}*"
 ```
 
-
-
-
+#### More examples:
 ```Nushell
-
+grep - E "a(aa)*"            # an impair number of "a". Can only return: a, aaa, aaaaa
+grep - E -o "a([^a][^a])*"
+# groups of 2, where the first it's an "a",  
+#   and the second group, from 0 to any number of:
+#   anything that is not an "a" + anything that is not an "a"
 ```
+
 
 
 ```Nushell
