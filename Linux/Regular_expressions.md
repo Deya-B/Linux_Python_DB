@@ -125,7 +125,7 @@ cat splice.data | grep -E "(GACC)+"
 ```Nushell
 cat splice.data | grep -E "(GACC){3}"
 ```
-- {N,M}, where N<M, means **between N and M** repetitions
+- `{N,M}`, where N<M, means **between N and M** repetitions
 ```Nushell
 cat splice.data | grep -E "(GACC){3,5}"
 ```
