@@ -1,14 +1,58 @@
+# Expansions
+## Arithmetic expansion
+Expressions of the form `$((oper))` where oper is any operation with integer numbers, are expanded by the shell to their corresponding value. Examples:
+```Nushell
+echo $((4+3))
+echo $((10/3))
+```
+## Brace expansion
+Expressions of the form `{list}` where list is a comma separated list of strings, are expanded by the shell as follows:
+```Nushell
+echo {A,B,C}             # Print the list A B C
+echo ho{rs,m,p,roscop}e  # Print the list horse home hope horoscope
+```
+
+Expressions of the form `{x..y}` where x and y are integer numbers or chars, are expanded by the shell in a similar way:
+```Nushell
+echo {a..z}
+a b c d e f g h i j k l m n o p q r s t u v w x y z
+
+echo {A..z}
+A B C D E F G H I J K L M N O P Q R S T U V W X Y Z [  ] ^ _ ` a b c d e f g h i j k l m n o p q r s t u v w x y z
+
+echo {a..Z}
+a ` _ ^ ] [ Z
+
+echo {3..7}
+3 4 5 6 7
+```
+
+List expansions can be in reverse order:
+```Nushell
+echo {z..a}
+echo {9..1}
+```
+
+Brace expansions can be nested
+```Nushell
+echo {X{1,2},Y{3,4}}
+echo {X,Y}{1..4}
+```
+
+A single line command that, using brace expansion,
+creates the list of directories mmm-yy, where mmm is a month (jan,
+feb,...) and yy is a year (16, 17, 18)
+```Nushell
+
+```
+
+
 # Linux Regular expressions
 - Special characters which help search data and matching complex patterns.
 - Regular expressions are shortened as ‘regexp’ or ‘regex’.
 - They are used in many Linux programs like grep, bash, rename, sed, etc.
 
-> These are some ranges that may be useful for regex:
-> - `echo {a..z}`→ `a b c d e f g h i j k l m n o p q r s t u v w x y z`
-> - `echo {A..z}`→ ``A B C D E F G H I J K L M N O P Q R S T U V W X Y Z [  ] ^ _ ` a b c d e f g h i j k l m n o p q r s t u v w x y z``
-> - `echo {a..Z}`→ ``a ` _ ^ ] [ Z``
-
-## 1. Basic Regular expressions
+## Basic Regular expressions
 
 | Symbol | Description | 
 | ------ | ----------- | 
@@ -19,7 +63,7 @@
 | `[^abc]` |match any character NOT in the group in the brackets.<br> Example: `[^0-9]`→ Find anything that is NOT a number |
 | `*` | after a character or expression means zero or more repetitions.<br> Example 1: `[0-9]*`→ Match any number (from none to any number) of characters from 0-9 (here we do find all characters of 1996 together. Check it out with `grep -o "[0-9]*"`) <br> Example 2: "a*" → Match a or a with any-(but only one)-thing next to it | 
 
-### 1.1 Examples with files:
+### Examples with files:
 - Lines with... any character (.), starting with (^), ending with ($):
   ```Nushell
   head -n 100 adult.data | grep "^25"              # Display all lines starting with 25
@@ -44,7 +88,7 @@
   # Lines containing non numerical data
   ```
   
-### 1.2 Deeper analysis into what is happening:
+### Deeper analysis into what is happening:
 ```Nushell
 $ cat myfile.txt | grep "[^0-9]*"
 ```
@@ -63,7 +107,7 @@ The following expression extracts the opposite, **lines that contain only number
 cat myfile.txt | grep "^[0-9]*$"
 ```
 
-### 1.3 Escaping Meta-characteres
+### Escaping Meta-characteres
 If we want to search for a character that has a special meaning (such
 as . or ∧), we have to precede it with a backslash \
 ```Nushell
@@ -71,17 +115,14 @@ head -n 100 adult.data | grep "^[A-Z].*\.$" # Lines starting with a capital lett
 head -n 100 adult.data | grep "^\^"         # Lines that start with the ∧ symbol
 ```
 
-## 2 Splice-junction Gene Sequences data set
+## Grouping
 For the following examples you must download the splice.data file:
 ```Nushell
 wget https://archive.ics.uci.edu/ml/machine-learning-databases/molecular-biology/splice-junction-gene-sequences/splice.data
 ```
+Sometimes we may want to group expressions using parentheses. <br> If we want the `()` symbols to be interpreted as group delimiters, we must escape them like this `\( \)`
 
-### 2.1 Grouping
-- Sometimes we may want to group expressions using parentheses
-- If we want the () symbols to be interpreted as group delimiters, we must escape them
-
-Whilst with... 
+To understand why gouping is use we can see that whilst with... 
 - `GTA` We obtain all the exact matches GTA separately. <br> This means: GTAGTAAAA, will be identified as the two matches GTA, GTA.
 - `GTA*` We obtain matches that contain GT+anything (any number of times) and resets with the start of a new GT. <br> This means GTAGTAAAA = (will yield) GTA, GTAAAA.
 
@@ -92,14 +133,14 @@ And with these is something else...
 - `[GTA]` We obtain anything that is G, T, or A, singly. <br> This means: CCAGCTGCACAGGAGG = A, G, T, G, A, A, G, G, A, G, G.
 - `[GTA]*` We obtain anything that is G, T, or A, single or group together between C's. Said in another way: all nucleotides except C, or any unbroken (by C) combination of these. <br> This means: CCAGCTGCACAGGAGG = AG, TG, A, AGGAGG.
 
-### Extended regular expressions
+## Extended regular expressions
 - The option **-E** allows grep to understand a more extensive set of regular expressions (egrep)
 - Extended regular expressions include all the basic meta-characters plus additional ones
 - For example, the `()` are group delimiters with the -E option (we don't need to escape them " \\")
 
 `cat splice.data | grep -E "GTA(GTA)*"` = `cat splice.data | grep "GTA\(GTA\)*"` <br> The 1st expression with **-E** option is equal to the 2nd without -E option.
 
-#### Alternation
+### Alternation
 - The | symbol indicates alternative matches
 
 - Lines containing either GACC or TCAG
@@ -112,9 +153,8 @@ And with these is something else...
   cat splice.data | grep -E "(AA|GG|TT|CC)(AA|GG|TT|CC)*"
   ```
 
-#### Quantifiers
-After any grouped expression = expression in `()`:
-- The symbol `*` means **zero or more** repetitions
+### Quantifiers
+`*` means **zero or more** repetitions.
   ```Nushell
   cat splice.data | grep -E "(GACC)*"
   cat splice.data | grep -E "(AA|GG)(AA|GG|TT|CC)*"
@@ -123,7 +163,8 @@ After any grouped expression = expression in `()`:
     #   zero or any number of the second group in braquets
     # Meaning: groups of 2 or any
   ```
-- The symbol `?` means **zero or one** repetitions
+
+`?` means **zero or one** repetitions.
   ```Nushell
   cat splice.data | grep -E "(GACC)?"
   cat splice.data | grep -E "(AA|GG)(AA|GG|TT|CC)?"
@@ -131,7 +172,8 @@ After any grouped expression = expression in `()`:
     #   and zero or one of the second group
     # Meaning: groups of 2 or 4
   ```
-- The symbol `+` means **one or more** repetitions
+
+`+` means **one or more** repetitions.
   ```Nushell
   cat splice.data | grep -E "(GACC)+"
   cat splice.data | grep -E "(AA|GG)(AA|GG|TT|CC)+"
@@ -140,24 +182,25 @@ After any grouped expression = expression in `()`:
     # Meaning: groups of 4 or many
   ```
   
-- **Mix and match:** Find the first group (0 or 1 reps) and the second group (0 or any rep):
-```Nushell
-cat splice.data | grep -E "(GACC)?(GACC)*
-```
+> **Mix and match:** Find the first group (0 or 1 reps) and the second group (0 or any rep):
+> ```Nushell
+> cat splice.data | grep -E "(GACC)?(GACC)*
+> ```
 
-- `{N}`, where N is a number, means **exactly N** repetitions
+`{N}`, where N is a number, means **exactly N** repetitions
   ```Nushell
   cat splice.data | grep -E "(GACC){3}"
   ```
-- `{N,M}`, where N<M, means **between N and M** repetitions
+
+`{N,M}`, where N<M, means **between N and M** repetitions
   ```Nushell
   cat splice.data | grep -E "(GACC){3,5}"
   ```
   
-- **Mix and match:** Find the first group (from 1 to 3 reps) and the second group (exactly 4 reps):
-```Nushell
-cat splice.data | grep -E "(G){1-3}(GC){4}*"
-```
+> **Mix and match:** Find the first group (from 1 to 3 reps) and the second group (exactly 4 reps):
+> ```Nushell
+> cat splice.data | grep -E "(G){1-3}(GC){4}*"
+> ```
 
 #### More examples:
 ```Nushell
@@ -168,39 +211,39 @@ grep - E -o "a([^a][^a])*"
 #   anything that is not an "a" + anything that is not an "a"
 ```
 
-
-# Expansions
-## Arithmetic expansion
-Expressions of the form `$((oper))` where oper is any operation with integer numbers, are expanded by the
-shell to their corresponding value. Examples:
+## Command and process substitution
+### Command substitution
+With command substitution we can use the output of a command as an expansion:
 ```Nushell
-echo $((4+3))
-echo $((10/3))
+$(command)
 ```
-## Brace expansion
-Expressions of the form `{list}` where list is a comma separated list of strings, are expanded by the shell as
-follows:
+#### Examples:
 ```Nushell
-echo {A,B,C}             # Print the list A B C
-echo ho{rs,m,p,roscop}e  # Print the list horse home hope horoscope
+echo $(ls)  # Print with echo the output of ls
+
+mkdir $(cut -d "," -f 4 adult.data | sort | uniq)
+# Make directories with the names of the unique values in the 4th
+column of adult.data
 ```
 
-
+### Process substitution
+- Process substitution allows a process input or output to be referred to using a filename
+- Executes all the commands in list saving the output to a file, which is then used as input to command
+- Executes command saving the output to a file, which is then used as input to list
 ```Nushell
-
+command <(list)
+command >(list)
 ```
-
+#### Examples:
+Add a first column with the line number to file adult.data
 ```Nushell
-
+paste -d "," <(seq 1 32562) adult.data > adult-nums.data
 ```
+Display the difference in the output from two commands
 ```Nushell
-
+diff <(command1) <(command2)
 ```
+Display first 10 sorted rows (similar to a pipeline)
 ```Nushell
-
-```
-
-  
-```Nushell
-
+sort splice.data > >(head -n 10)
 ```
