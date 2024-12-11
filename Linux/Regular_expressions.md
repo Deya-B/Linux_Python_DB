@@ -33,17 +33,19 @@
 #### Deeper analysis into what is happening:
 ```Nushell
 $ cat myfile.txt | grep "[^0-9]*"
-
 ```
+  ![`cat myfile.txt | grep "[^0-9]*`](./imagesregex/Captura%20desde%202024-12-10%2020-44-35.png)
+In this image we can see the result of using the regular expression `[^0-9]*` in a file with lines containing both letters and numbers. Whit this expression we remove lines with ONLY numbers, but those lines including both letters and numbers are shown.
 
-
-
+On the other hand...
+```Nushell
+cat myfile.txt | grep "^[^0-9]*$"
+```
+![cat myfile.txt | grep "^[^0-9]*$"](./imagesregex/Captura%20desde%202024-12-10%2020-45-32.png)
+In this we can se the result of using `^[^0-9]*$` instead. As observed only lines that DO NOT CONTAIN numeric characters are displayed.
 ```Nushell
 
-```
-
-```Nushell
-
+#### Escaping Meta-characteres
 ```
 ```Nushell
 
