@@ -79,7 +79,7 @@ And with these is something else...
 - `[GTA]*` We obtain anything that is G, T, or A, single or group together between C's. Said in another way: all nucleotides except C, or any unbroken (by C) combination of these. <br> This means: CCAGCTGCACAGGAGG = AG, TG, A, AGGAGG.
 
 ### Extended regular expressions
-- The option -E allows grep to understand a more extensive set of regular expressions (egrep)
+- The option **-E** allows grep to understand a more extensive set of regular expressions (egrep)
 - Extended regular expressions include all the basic meta-characters plus additional ones
 - For example, the `()` are group delimiters with the -E option (we don't need to escape them " \\")
 
