@@ -4,10 +4,25 @@
 sed OPTIONS... [SCRIPT] [INPUTFILE...]
 ```
 - Performs basic text transformations (substitutions, deletions, etc.) on the input stream
+- Very useful to make changes in very large files without the need for opening them
 - Makes only one pass over the input, processing the text line by line
 - Able to filter text in a pipeline
 
-For example `sed 's/dog/cat/g' input.txt` replaces every appearance of dog with cat.
+For example:
+
+```Nushell
+sed 's/dog/cat/g' input.txt
+```
+
+-  Replaces every appearance of dog with cat.
+-  `s` command means substitute/replace and
+-  `g` indicates to change all the ocurrences in the line
+
+
+```Nushell
+sed 's/dog/cat/' input.txt        # Changes only the first ocurrence of dog with cat
+sed '10,20s/dog/cat/g' input.txt  # From line 10 to 20, replace dog by cat
+```
 
 By default sed writes to the standard output. This behavior can be changed with the -i option to edit the file “in place”: `sed -i 's/dog/cat/g' input.txt`
 
@@ -18,17 +33,17 @@ A sed command has the following syntax:
 ```Nushell
 [addr]X[options]
 ```
-- **[addr]** is an optional address that can be a line number, a range of lines or a regular expression
-- **X** is a single-letter command to be executed on the lines that match the address pattern
-- Some commands have **[options]** that modify their default behavior
+- **`[addr]`** is an optional address that can be a line number, a range of lines or a regular expression
+- **`X`** is a single-letter command to be executed on the lines that match the address pattern
+- Some commands have **`[options]`** that modify their default behavior
 
 Examples:
 ```Nushell
 sed '10,20s/dog/cat/g' input.txt
 ```
-- 10,20 is the address: lines 10 to 20
-- s/dog/cat/ is the command: replace dog by cat
-- g is an option to the s command: replace all appearances in each line
+- `10,20` is the address: lines 10 to 20
+- `s/dog/cat/` is the command: replace dog by cat
+- `g` is an option to the s command: replace all appearances in each line
 
 ```Nushell
 sed 's/dog/cat/' input.txt
@@ -41,28 +56,28 @@ sed 's/dog/cat/' input.txt
 s/regexp/string/[flags]
 ```
 - Substitute regular expression regexp by string, flags are optional:
-    - g, replaces all matches, not just the first.
-    - N, where N is a number, replace only the Nth match
-    - p, prints the new line after replacement
+    - `g`, replaces all matches, not just the first.
+    - `N`, where N is a number, replace only the Nth match
+    - `p`, prints the new line after replacement
 
 - `q[exit_code]` EXIT sed without processing any more commands or input.
 - `d` Delete the current line and start next cycle ignoring any other commands
 - `p` Print the current line, usually used together with the -n option
 - `n` If automatic output is not disabled, print the current line and replace it with the next input line; useful to skip lines
 - `a \ newline` Insert the text given in a newline - 'a' appends after the text
-- `i \ newline` Insert the text given in a newline - 'i' appends before the text
+- `i \ newline` Insert the text given in a newline - 'i' appends before the text <br> `sed '1i\Header' input.txt`
 
 
 ### sed addresses
 - The address determines the line or lines on which a sed command will be executed
 - If the address is missing, the command is run on all lines
 - The address can be a line number, a line range or a regular expression
-- The symbol ! at the end of an address means complement: all lines except those matching the address pattern
+- The symbol `!` at the end of an address means complement: all lines except those matching the address pattern
 
 #### Numeric addresses
-- `sed '125s/dog/cat/' input.txt` A **single number** indicates the line where the command should be executed
-- `sed '$s/dog/cat/' input.txt` The **$** symbol refers to the last line in the input
-- `sed '1i\Header' input.txt` Insert text 'Header' before the first line
+- `sed '125s/dog/cat/' input.txt` A **single number** indicates the line where the command should be executed. Meaning: in line 125 replace...
+- `sed '$s/dog/cat/' input.txt` The **$** symbol means: replace in the last line...
+- `sed '1i\Header' input.txt` Insert the text 'Header' before the first line
 
 #### Range addresses
 1. `N,M`
@@ -78,35 +93,61 @@ Where N and M integers, matches lines N, N+M, N+2M, ... <br>
 - sed accepts the same regular expressions as grep
 - Option -E for extended regular expressions
 
-Examples:
+### Examples including everything:
 - `sed '/^[A-Z]/s/dog/cat/' input.txt` Replace dog by cat in all lines starting with a capital letter
 - `sed '/dog/a\previous line has a dog' input.txt` Append line 'previous line has a dog' after each line containing 'dog'
 - `sed '10,20d' input.txt` Delete lines 10 to 20
-- `sed -n '/regexp/p' input.txt` Print all lines containing the regular expression regexp (grep)
+- `sed -nE '/@[a-z]*(.com)/p' emails.txt` Print all lines containing the regular expression
 - `sed '10,20!/s/dog/cat/' input.txt` Replace dog by cat in all lines except 10-20
 - `sed '/regexp/!/s/dog/cat/' input.txt` Replace dog by cat in all lines not matching regexp
+- `sed -n '10,12{s/.com/.org/ ; p}' emails.txt` In lines 10 to 12 replace .com por .org and print those lines
 
 #### Command grouping
 `{ commands }` A group of commands enclosed in braces {} may be triggered by a single address
 ```Nushell
 sed -n '10,20{s/dog/cat/ ; p}'
+sed -n '10,12{s/.com/.org/ ; p}' emails.txt
 ```
 - The -n option disables automatic printing
 - The two commands s/dog/cat/ and p are executed on matching lines
 - s/dog/cat/ replaces dog by cat (only the first occurrence)
-- After that, p prints the line
+- After that, p prints the lines changed
 
-#### Exercises:
-Which is the output of the following commands?<br>
-`sed '/^$/d' input.txt` <br>
-`seq 1 20 | sed -n '3,10p'`<br>
-`seq 1 20 | sed -n '/[26]/{s/1/5/;p}'`
+### Exercises:
+#### Which is the output of the following commands? 
+- `sed '/^$/d' input.txt > non_empty_lines_input.txt` 
+    > Deletes all empty lines from input.txt and sends the result to non_empty_lines_input.txt
+- `seq 1 20 | sed -n '3,10p'`
+    > (seq)Make a sequence from 1-20, (sed)print from line 3 to 10.
+- `seq 1 20 | sed -n '/[26]/{s/1/5/;p}'`
+    > 1. seq generates a sequence of numbers from 1 to 20 (one per line)
+    > 2. sed -n prevents sed from printing lines unless explicitly instructed
+    > 3. `/[26]/` is a pattern match, it matches line containing either `2` or `6`, lines matching this pattern are processed further (within the `{}` block)
+    > 4. `{s/1/5/;p}` This is the **action block**: <br>
+    s/1/5/ substitutes the first ocurrence of 1 with 5 on each matching line;<br>
+    and `p` prints the modified line.<br>
+    > 6. The printing outcome is:
 
-What is the output of the last command if we remove the braces?
+          2
+          6
+          52
+          56
+          20  
+         
+#### What is the output of the last command if we remove the braces?
+If the command is changed to `seq 1 20 | sed -n '/[26]/s/1/5/;p'`<br>
+`!` Only the line 26 is changed
+#### Write a sed command to display lines from 100 to 200 (inclusive) of file adult.data
+```Nushell
+# Option 1: cat -n (shows the line number)
+cat -n adult.data | sed -n '100,200p'
 
-Write a sed command to display lines from 100 to 200 (inclusive) of file adult.data
+# Option 2: (use number line command)
+nl adult.data | sed -n '100,200p'
 
-
+# Option 3: (using only sed, `=` prints the line number, `p` prints the actual line)
+sed -n '100,200{=;p}' adult.data
+```
 
 ## The awk command
 [Awk](https://www.gnu.org/software/gawk/manual/gawk.html) is a programming language designed for text processing.
@@ -236,22 +277,22 @@ print item1, item2, ...
     ```
 - Print lines that have a - sign in the 14th field
     ```Nushell
-    awk ’$14~/-/’ adult.data
+    awk '$14~/-/' adult.data
     ```
 - Print the number of lines in file (eq. to wc -l)
     ```Nushell
-    awk ’END { print NR }’ adult.data
+    awk 'END { print NR }' adult.data
     ```
 - Which is the output of this program?
 ```Nushell
-echo a b c d | awk ’{ OFS = ":"; $2 = "";
+echo a b c d | awk '{ OFS = ":"; $2 = "";
                     $6 = "new"; print $0;
-                    print NF }’
+                    print NF }'
 ```
 - Which is the output of this program?
 ```Nushell
-echo a b c d e f | awk ’{ print "NF =", NF; NF = 3;
-                          $1 = $1; print $0 }’
+echo a b c d e f | awk '{ print "NF =", NF; NF = 3;
+                          $1 = $1; print $0 }'
 ```
 
 #### Exercises
