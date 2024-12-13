@@ -254,13 +254,13 @@ awk '/regexp1/ {print $0}; /regexp2/ {print $0}' input-file
 |Records term|Meaning|
 |----|----|
 | `records` |inputs, usually lines, separated by fields (see below)|
-|`RS`|record separator (character that separates the records, `\n` by default) <br> Can be changed by assigning a new value to **RS**|
+|`RS`|Record Separator (character that separates the records, `\n` by default) <br> Can be changed by assigning a new value to **RS**|
 |**`NR`**|number of records (represents the actual lines; <br> Ex `NR == 4` is line 4; `NR > 4` is from line 4 till the end)|
 
 |Fields term|Meaning|
 |----|----|
 |`fields`|divides records into pieces|
-|`FS`<br>`-F`|field separator <br> Character that separates the records, whitespace (one or more spaces, TABs or newlines) by default <br> Can be changed by assigning a new value to **FS** or with **-F** (in the command line)|
+|`FS`<br>`OFS`<br>`-F`|Output Field Separator <br> Character that separates the records, whitespace (one or more spaces, TABs or newlines) by default <br> Can be changed by assigning a new value to **FS**/OFS or with **-F** (in the command line)|
 |`NF`|number of fields|
 |**`$i`**|is used to refer to the actual fields ($1 refers to field/column 1; Ex `{ print $1 }`)|
 |**`$0`**| refers to the entire current line (in loops), containing the full text of this line, from the start till the end, including all fields and spaces|
@@ -274,8 +274,8 @@ print item1, item2, ...
 - The *output field separator* can be changed by modifying the variable **OFS**
 
 
-#### Examples:
-#### Playing with fields ($):
+### Examples:
+#### ... with fields ($ ,NF):
 ```Nushell
 ls -l | awk '{ print $5, $6, $7, $7 + $5 }'
   # Print fields 5, 6, 7 and the sum of field 7 + 5 in a new field
@@ -321,8 +321,51 @@ ls -l | awk '{ print $5, $6, $7, $7 + $5 }'
                         $6 = "new"; print $0;
                         print NF }'
     ```
+    The output is:
+    ```
+      a::c:d::new
+      6
+    ```
+    Explanation:
+    > **echo** creates a string `a b c d` that is piped to awk
+    > 
+    > **awk** sets `OFS`, output field separator to `:` <br>
+    > `$2 = ""` Sets the second field to an empty string (removing it) <br>
+    > `$6 = "new"` Assigns new to the 6th field, even though the input has 4 fields... <br>
+    > Thefore an empty 5th field is added <br>
+    >
+    > `print $0` Prints the entire modified record
+    >
+    > `print NF` Prints the total number of field at the end (which is 6) <br>
+    > . . .
+           
+- Which is the output of this program?
+    ```Nushell
+    echo a b c d e f | awk '{ print "NF =", NF; NF = 3;
+                              $1 = $1; print $0 }'
+    ```
+    The output is:
+    ```
+      NF = 6
+      a b c
+    ```
+    Explanation:
+    > **echo** produces the string `a b c d e f`
+    > 
+    > **awk** processes the previous as ($1 = a, $2 = b,...$6 = f) <br>
+    > The total number of fields `NF` is initially 6 <br>
+    > Then, the action prints "NF =", NF: `NF = 6` <br>
+    > `NF = 3` Changes NF to 3, removing fields 4-6 <br>
+    > `$1 = $1` Tells awk to rebuild $0 so that only contains fields up to the new `NF` value <br>
+    > `print $0` Prints the modified line, which now contains only the first 3 fields
+    > . . .
+    
+- And this?
+  ```Nushell
+  echo a b c d | awk '{ OFS = "|"; $1 = 1; $2 = "2"; $3 = 3; $4 = 4; $5 = 5;  $6 = "new"; print $0; print NF }'
+  ```
   
-#### Playing with number of records (NR):
+#### ... with records (NR):
 - Print the number of lines in file (eq. to wc -l)
 ```Nushell
 awk 'END { print NR }' adult.data
@@ -334,11 +377,7 @@ ls -l | awk 'NR == 4'  # print LINE 4
 ls -l | awk 'NR <= 4'  # print line 4 and lower (from 1-4) 
 ```
 
-- Which is the output of this program?
-```Nushell
-echo a b c d e f | awk '{ print "NF =", NF; NF = 3;
-                          $1 = $1; print $0 }'
-```
+
 
 #### Exercises
 1. Write an awk program that prints the age (field 1), education (field
