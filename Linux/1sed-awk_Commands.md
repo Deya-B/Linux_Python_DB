@@ -390,8 +390,6 @@ ls -l | awk 'NR == 4'  # print LINE 4
 ls -l | awk 'NR <= 4'  # print line 4 and lower (from 1-4) 
 ```
 
-
-
 #### Exercises
 1. Write an awk program that prints the age (field 1), education (field
 4), gender (field 10), marital status (field 6) and working hours per
@@ -399,10 +397,20 @@ week (field 13) for all records in the file adult.data where the country
 (field 14) is United-States
 - The fields must be displayed in the previous order
 - They must be separated by a semicolon (;)
+
+```Nushell
+awk 'BEGIN { FS = ","; OFS = ";" } 
+     $14 ~ /United-States/ { print $1, $4, $10, $6, $13 }' adult.data
+```
+
 2. Modify the previous program so that it prints the following header
 before any other output
-```Nushell
+```
 Age;Education;Gender;Marital-status;Hours-per-week
+
+awk 'BEGIN { FS = ","; OFS = ";" } 
+     NR == 1 { print "Age;Education;Gender;Marital-Status;Hours-per-week" }
+     $14 ~ /United-States/ { print $1, $4, $10, $6, $13 }' adult.data
 ```
 3. Write an awk program that processes the file adult.data and prints
 the mean number of hours worked by men and women
