@@ -272,7 +272,20 @@ print item1, item2, ...
 - Prints each of the items in the list separated, by default, with single spaces
 - The *output field separator* can be changed by modifying the variable **OFS**
 
+
 #### Examples:
+#### Playing with fields ($):
+```Nushell
+ls -l | awk '{ print $5, $6, $7, $7 + $5 }'
+  # Print fields 5, 6, 7 and the sum of field 7 + 5 in a new field
+```
+
+- Print lines that have a - sign in the 14th field:
+    ```Nushell
+    awk '$14~/-/' adult.data
+      # ~ is a comparative operator that checks if we find the regexp /-/ in line 14
+    ```
+    
 - Print the length of the longest line in adult.data
     ```Nushell
     awk 'BEGIN { max = 0}
@@ -301,28 +314,25 @@ print item1, item2, ...
               # After processing all lines, prints the total sum
     ```
 
-- Print fields 5, 6, 7 and the sum of field 7 + 5 in a new field:
+- Which is the output of this program?
+    ```Nushell
+    echo a b c d | awk '{ OFS = ":"; $2 = "";
+                        $6 = "new"; print $0;
+                        print NF }'
+    ```
+  
+#### Playing with number of records (NR):
+- Print the number of lines in file (eq. to wc -l)
 ```Nushell
-ls -l | awk '{ print $5, $6, $7, $7 + $5 }'
+awk 'END { print NR }' adult.data
 ```
 
-- Print lines that have a - sign in the 14th field:
-    ```Nushell
-    awk '$14~/-/' adult.data
-      # ~ is a comparative operator that checks if we find the regexp /-/ in line 14
-    ```
-    
-- Print the number of lines in file (eq. to wc -l)
-    ```Nushell
-    awk 'END { print NR }' adult.data
-    ```
-    
-- Which is the output of this program?
+- Print lines:
 ```Nushell
-echo a b c d | awk '{ OFS = ":"; $2 = "";
-                    $6 = "new"; print $0;
-                    print NF }'
+ls -l | awk 'NR == 4'  # print LINE 4
+ls -l | awk 'NR <= 4'  # print line 4 and lower (from 1-4) 
 ```
+
 - Which is the output of this program?
 ```Nushell
 echo a b c d e f | awk '{ print "NF =", NF; NF = 3;
