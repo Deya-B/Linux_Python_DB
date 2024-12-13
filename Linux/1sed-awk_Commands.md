@@ -438,3 +438,12 @@ awk 'BEGIN { FS = ", "; fsum = 0; fhours = 0; msum = 0; mhours = 0 }
 5. Use awk or sed to process the file splice.data and print all the records
 where the sequence contains a string that starts with GAA, ends with
 CTA and is longer than 10 characters
+```Nushell
+grep -E -o 'GAA[ACGT]+[ACGT]+[ACGT]+[ACGT]CTA' splice.data
+head -50 splice.data | awk -F ","
+                      '/GAA[ACGT]+[ACGT]+[ACGT]+[ACGT]CTA/
+                      { print $2 }'  # print field 2
+
+awk -F "," '/GAA[ACGT]+[ACGT]+[ACGT]+[ACGT]CTA/
+           { print $0 }' splice.data   # All fields
+```
