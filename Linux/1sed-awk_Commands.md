@@ -261,8 +261,8 @@ awk '/regexp1/ {print $0}; /regexp2/ {print $0}' input-file
 - The field separator can be changed by assigning the variable **FS**, or in the command line with the option **-F**
 - The number of fields in a record is stored in the variable **NF**
 - Fields are referred to with the **$** sign
-    - **$0** is the whole record
-    - **$i**, with i > 0, is the ith field
+    - **$0** refers to the entire current line, containing the full text of this line, from the start till the end, including all fields and spaces
+    - **$i**, with i > 0, is the ith field/column
     - **$NF** is the last field
 
 ### The print statement
@@ -277,22 +277,46 @@ print item1, item2, ...
     ```Nushell
     awk 'BEGIN { max = 0}
         { if (length($0) > max) max = length($0) }
+    
+          # 1) If the length of the line is larger that the max (first set to 0)
+          # 2) The new max is the new length
+          # This is repeated for every line in the file
+    
         END { print max }' adult.data
+          # Print the length, that will result in the longest
+          # Since the action is every time comparing to the max
     ```
-- Print the accumulated size of the files of user carlos
+    
+- Print the accumulated size of the files of user pepe:
     ```Nushell
     ls -l | awk 'BEGIN { sum = 0 }
-                $3 == "carlos" { sum += $5 }
-                END { print sum }'
+           $3 == "pepe" { sum += $5 }
+    
+              # $3 is the field/column 3 (user)
+              # and $5 is column 5 (file size)
+              # For each line it checks user is pepe and if true
+                  # it adds file size to sum = it sums the ammount in the field
+    
+           END { print sum }'
+              # After processing all lines, prints the total sum
     ```
-- Print lines that have a - sign in the 14th field
+
+- Print fields 5, 6, 7 and the sum of field 7 + 5 in a new field:
+```Nushell
+ls -l | awk '{ print $5, $6, $7, $7 + $5 }'
+```
+
+- Print lines that have a - sign in the 14th field:
     ```Nushell
     awk '$14~/-/' adult.data
+      # ~ is a comparative operator that checks if we find the regexp /-/ in line 14
     ```
+    
 - Print the number of lines in file (eq. to wc -l)
     ```Nushell
     awk 'END { print NR }' adult.data
     ```
+    
 - Which is the output of this program?
 ```Nushell
 echo a b c d | awk '{ OFS = ":"; $2 = "";
