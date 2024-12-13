@@ -251,19 +251,20 @@ awk '/regexp1/ {print $0}; /regexp2/ {print $0}' input-file
 > - **Output:** print<br>
 
 ### Awk records and fields
-- Awk reads the input in units called **records**
-- Records are separated by a character called *record separator*
-- The record separator is, by default, the newline character (\n), so records are usually lines
-- The record separator can be changed by assigning a different value to the variable **RS**
-- Awk keeps track of the number of records that have been read in the variable **NR**
-- Each record is divided into pieces called **fields**
-- By default, fields are separated by whitespace (one or more spaces, TABs or newlines)
-- The field separator can be changed by assigning the variable **FS**, or in the command line with the option **-F**
-- The number of fields in a record is stored in the variable **NF**
-- Fields are referred to with the **$** sign
-    - **$0** refers to the entire current line, containing the full text of this line, from the start till the end, including all fields and spaces
-    - **$i**, with i > 0, is the ith field/column
-    - **$NF** is the last field
+|Records term|Meaning|
+|----|----|
+| `records` |inputs, usually lines, separated by fields (see below)|
+|`RS`|record separator (character that separates the records, `\n` by default) <br> Can be changed by assigning a new value to **RS**|
+|**`NR`**|number of records (represents the actual lines; <br> Ex `NR == 4` is line 4; `NR > 4` is from line 4 till the end)|
+
+|Fields term|Meaning|
+|----|----|
+|`fields`|divides records into pieces|
+|`FS`<br>`-F`|field separator <br> Character that separates the records, whitespace (one or more spaces, TABs or newlines) by default <br> Can be changed by assigning a new value to **FS** or with **-F** (in the command line)|
+|`NF`|number of fields|
+|**`$i`**|is used to refer to the actual fields ($1 refers to field/column 1; Ex `{ print $1 }`)|
+|**`$0`**| refers to the entire current line (in loops), containing the full text of this line, from the start till the end, including all fields and spaces|
+|**`$NF`**|is the last field|
 
 ### The print statement
 ```Nushell
