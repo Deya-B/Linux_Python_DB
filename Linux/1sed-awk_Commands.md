@@ -336,7 +336,8 @@ ls -l | awk '{ print $5, $6, $7, $7 + $5 }'
     >
     > `print $0` Prints the entire modified record
     >
-    > `print NF` Prints the total number of field at the end (which is 6) <br>
+    > `print NF` Prints the total number of field at the end (which is 6)
+    > 
     > . . .
            
 - Which is the output of this program?
@@ -358,12 +359,24 @@ ls -l | awk '{ print $5, $6, $7, $7 + $5 }'
     > `NF = 3` Changes NF to 3, removing fields 4-6 <br>
     > `$1 = $1` Tells awk to rebuild $0 so that only contains fields up to the new `NF` value <br>
     > `print $0` Prints the modified line, which now contains only the first 3 fields
+    > 
     > . . .
     
 - And this?
-  ```Nushell
-  echo a b c d | awk '{ OFS = "|"; $1 = 1; $2 = "2"; $3 = 3; $4 = 4; $5 = 5;  $6 = "new"; print $0; print NF }'
-  ```
+    ```Nushell
+    echo a b c d | awk '{ OFS = "|"; $1 = 1; $2 = "2";
+                                     $3 = 3; $4 = 4;
+                                     $5 = 5;  $6 = "new"; print $0;
+                                     print NF }'
+    ```
+    1. Sets the field separator to `|`
+    2. Replaces every field `a b c d` with the new values `1 2 3 4` and creates `5 new`
+    3. Prints the modified line and the number of fields `NF`
+    4. The output is:
+        ```
+          1|2|3|4|5|new
+          6
+        ```
   
 #### ... with records (NR):
 - Print the number of lines in file (eq. to wc -l)
