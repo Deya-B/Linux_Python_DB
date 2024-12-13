@@ -413,14 +413,14 @@ awk 'BEGIN { FS = ","; OFS = ";" }
      $14 ~ /United-States/ { print $1, $4, $10, $6, $13 }' adult.data
 ```
 > BEGIN Block:
-> > FS = "," specifies that the input is a comma-separated file.<br>
-> > OFS = ";" ensures that the output fields are separated by semicolons.<br>
+> - FS = "," specifies that the input is a comma-separated file.<br>
+> - OFS = ";" ensures that the output fields are separated by semicolons.<br>
 >
 > Header:
-> > The header is printed only once for the first record using NR == 1.
+> - The header is printed only once for the first record using NR == 1.
 >
 > Filter for United States:
-> > $14 ~ /United-States/ checks if the 14th field contains "United-States".
+> - $14 ~ /United-States/ checks if the 14th field contains "United-States".
 
 
 3. Write an awk program that processes the file adult.data and prints
