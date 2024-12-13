@@ -260,7 +260,7 @@ awk '/regexp1/ {print $0}; /regexp2/ {print $0}' input-file
 |Fields term|Meaning|
 |----|----|
 |`fields`|divides records into pieces|
-|`FS`<br>`OFS`<br>`-F`|Output Field Separator <br> Character that separates the records, whitespace (one or more spaces, TABs or newlines) by default <br> Can be changed by assigning a new value to **FS**/OFS or with **-F** (in the command line)|
+|`FS`<br>`OFS`<br>`-F`|Field Separator; Output Field Separator <br> Character that separates the records, whitespace (one or more spaces, TABs or newlines) by default <br> Can be changed by assigning a new value to **FS**/OFS or with **-F** (in the command line)|
 |`NF`|number of fields|
 |**`$i`**|is used to refer to the actual fields ($1 refers to field/column 1; Ex `{ print $1 }`)|
 |**`$0`**| refers to the entire current line (in loops), containing the full text of this line, from the start till the end, including all fields and spaces|
