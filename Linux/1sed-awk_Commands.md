@@ -412,8 +412,29 @@ awk 'BEGIN { FS = ","; OFS = ";" }
      NR == 1 { print "Age;Education;Gender;Marital-Status;Hours-per-week" }
      $14 ~ /United-States/ { print $1, $4, $10, $6, $13 }' adult.data
 ```
+> BEGIN Block:
+> > FS = "," specifies that the input is a comma-separated file.<br>
+> > OFS = ";" ensures that the output fields are separated by semicolons.<br>
+>
+> Header:
+> > The header is printed only once for the first record using NR == 1.
+>
+> Filter for United States:
+> > $14 ~ /United-States/ checks if the 14th field contains "United-States".
+
+
 3. Write an awk program that processes the file adult.data and prints
 the mean number of hours worked by men and women
-4. Use awk or sed to process the file splice.data and print all the records
+```Nushell
+awk 'BEGIN { FS = ", "; fsum = 0; fhours = 0; msum = 0; mhours = 0 }
+      $10 ~ /Female/ { fsum += 1;  fhours += $13 }
+      $10 ~ /Male/ { msum +=1; mhours += $13 }
+    END { print "Total women =", fsum; print "Total hours =", fhours;
+      print "Mean hours Females =", fhours/fsum;
+      print "Total men =", msum; print "Total hours =", mhours;
+      print "Mean hours Males =", mhours/msum }' adult.data
+```
+
+5. Use awk or sed to process the file splice.data and print all the records
 where the sequence contains a string that starts with GAA, ends with
 CTA and is longer than 10 characters
