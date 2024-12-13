@@ -1,4 +1,9 @@
-## The sed command
+## Table of Contents I <a name="contents1"></a>
+1. [The sed command](#sed)
+2. [The awk command](#awk)
+
+  
+## The sed command <a name="sed"></a>
 [sed](https://www.gnu.org/software/sed/) (stream editor) is a non-interactive command-line text editor
 ```Nushell
 sed OPTIONS... [SCRIPT] [INPUTFILE...]
@@ -149,9 +154,10 @@ nl adult.data | sed -n '100,200p'
 sed -n '100,200{=;p}' adult.data
 ```
 
-## The awk command
+## The awk command <a name="awk"></a>
 [Awk](https://www.gnu.org/software/gawk/manual/gawk.html) is a programming language designed for text processing.
 - Awk processes text files line by line
+- It is used to work with csv like files 
 - It searches for lines that contain certain patterns
 - When a line matches a pattern, awk performs some actions on that line
 ```Nushell
@@ -166,6 +172,7 @@ awk OPTIONS... [PROGRAM] [INPUTFILE...]
     ```Nushell
     awk -f program-file input-file
     ```
+    
 ### Awk programs
 - A program in awk is a set of rules of the form:
     ```Nushell
@@ -181,18 +188,21 @@ awk OPTIONS... [PROGRAM] [INPUTFILE...]
     ```Nushell
     # This is a comment
     ```
-#### Simple examples
-- `awk 'BEGIN {print "Hello world}'` Hello world
-- `awk '/regexp/ { print $0 }' input-file` Print lines that match the regular expression regexp
-- `awk '/regexp/' input-file` Equivalent to the following (the default action is to print the line)
-- `awk '/regexp/ {}' input-file` But not to the following (an empty action means to do nothing)
-- `awk 'length($0) > 50' input-file` Print lines longer than 50 characters (no action)
-- `awk '{ print $0 }' input-file` Print all lines (no pattern)
 
-Note that:
-- Either the pattern or the action can be omitted, but not both
-- If the pattern is omitted, the action is performed on all lines
-- If the action is omitted, lines that match the pattern are printed
+> [!NOTE]
+> - Either the pattern or the action can be omitted, but not both
+> - If the pattern is omitted, the action is performed on all lines
+> - If the action is omitted, lines that match the pattern are printed.
+
+#### Simple examples
+1. `awk 'BEGIN {print "Hello world"}'` Hello world
+2. `awk '/regexp/ { print $0 }' input-file` If the regexp matches it, prints the lines, equivalent to:
+3. `awk '/regexp/' input-file`
+    - There is a **pattern but no `{action}`**
+    - Turns to the default action of awk, which is to print the line
+4. `awk '/regexp/ {}' input-file` **An empty action** `{}` means to do nothing
+5. `awk 'length($0) > 50' input-file` Print lines longer than 50 characters (**no action**)
+6. `awk '{ print $0 }' input-file` Print all lines (**no pattern**)
 
 ### The awk cycle
 1. Awk reads the input file line by line
@@ -207,11 +217,11 @@ awk '/regexp1/ {print $0}; /regexp2/ {print $0}' input-file
 ```
 
 ### Command line options
-- `-F fs` Set the FS variable (field separator) to the string fs
-- `-f source-file` Read the awk program from source-file
-- `-v var=val` Set the variable var to the value val before execution begins; use one -v
-option for each variable
-
+|Option|Function|
+|----|----|
+|`-F fs` |Set the FS variable (field separator) to the string fs|
+|`-f source-file`| Read the awk program from source-file|
+|`-v var=val`| Set the variable var to the value val before execution begins; <br> use one -v option for each variable|
 
 ### Awk patterns
 1. `/regexp/` <br>
@@ -234,7 +244,7 @@ option for each variable
 - An action is a set of one or more statements, enclosed in braces `{ }` and separated by semicolons (`;`) or newlines 
 - A missing action is equivalent to `{print $0}`
 
-> [!IMPORTANT]
+> [!NOTE]
 > **Basic statements in awk**: <br>
 > - **Expressions:** assignments, arithmetic operations, comparisons<br>
 > - **Control:** C-like constructs (if, for, while, do)<br>
