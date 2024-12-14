@@ -39,5 +39,10 @@ pip install requests
 
 ```python
 import requests
+
+url = 'https://www.ebi.ac.uk/Tools/dbfetch/dbfetch?db=ena_sequence&id=J00231&style=raw'
+response = requests.get(url)
+
+print(response.text)
 ```
 
